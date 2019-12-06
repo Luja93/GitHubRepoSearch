@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.luja93.githubreposearch">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".githubreposearch.App"
         android:allowBackup="true"
@@ -16,7 +18,9 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".githubreposearch.main.MainActivity">
+        <activity
+            android:name=".githubreposearch.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

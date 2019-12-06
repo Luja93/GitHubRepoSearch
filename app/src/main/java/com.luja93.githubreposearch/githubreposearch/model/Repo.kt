@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.luja93.githubreposearch.utils.DateTimeUtils
 
 @Entity
 data class Repo(
@@ -22,11 +23,11 @@ data class Repo(
     @SerializedName("html_url")
     val url: String,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("created_at")
-    val _createdAt: String,
+    val _createdAtTimeStamp: String,
     @SerializedName("updated_at")
-    val _updatedAt: String,
+    val _updatedAtTimeStamp: String,
     @SerializedName("watchers_count")
     val watcherCount: Long,
     @SerializedName("forks_count")
@@ -43,5 +44,8 @@ data class Repo(
         Watchers("stars"),
         Issues("help-wanted-issues")
     }
+
+    val createdAt: String get() = DateTimeUtils().getRepoDateString(_createdAtTimeStamp)
+    val updatedAt: String get() = DateTimeUtils().getRepoDateString(_updatedAtTimeStamp)
 
 }

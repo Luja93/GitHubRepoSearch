@@ -1,4 +1,4 @@
-package com.luja93.githubreposearch.githubreposearch.example
+package com.luja93.githubreposearch.githubreposearch.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.repository.repo.RepoRepo
 import javax.inject.Inject
 
-class ExampleViewModel @Inject constructor(
+class SearchReposViewModel @Inject constructor(
     schedulers: SchedulerProvider,
     private val repoRepo: RepoRepo
 ) : BaseViewModel(schedulers) {

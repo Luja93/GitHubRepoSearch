@@ -28,8 +28,10 @@ object DialogUtil {
 
         val loaderImage = dialog.findViewById<ImageView>(R.id.loading_img)
 
-        val pulseAnim = ScaleAnimation(1f, 1.2f, 1f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-            0.5f)
+        val pulseAnim = ScaleAnimation(
+            1f, 1.2f, 1f, 1.2f,
+            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+        )
         pulseAnim.repeatCount = Animation.INFINITE
         pulseAnim.repeatMode = Animation.REVERSE
         pulseAnim.duration = 180

@@ -1,7 +1,7 @@
 package com.luja93.githubreposearch.common.dagger.modules
 
-import com.luja93.githubreposearch.githubreposearch.example.ExampleFragment
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
+import com.luja93.githubreposearch.githubreposearch.search.SearchReposFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -16,5 +16,5 @@ abstract class BindingModuleFragments {
     abstract fun contributeBaseFragment(): BaseFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeExampleFragment(): ExampleFragment
+    abstract fun contributeExampleFragment(): SearchReposFragment
 }

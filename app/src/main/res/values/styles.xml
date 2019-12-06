@@ -6,15 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="LoginTheme" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#FFF</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Collapsible" parent="AppTheme.NoActionBar">
@@ -26,65 +23,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+    <style name="ToolbarTitleBarTextAppearance" parent="android:TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/toolbar_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
     <style name="Dialog" parent="Base.Theme.MaterialComponents.Light.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowBackground">@drawable/dialog_background</item>
-    </style>
-
-    <style name="Button" parent="Widget.MaterialComponents.Button">
-        <!--        <item name="android:background">@drawable/button_background</item>-->
-        <item name="android:textColor">#FFF</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginRight">4dp</item>
-    </style>
-
-
-    <style name="SmallButton" parent="Widget.MaterialComponents.Button.TextButton">
-
-        <item name="android:padding">0dp</item>
-        <item name="android:drawablePadding">0dp</item>
-        <item name="android:minHeight">40dp</item>
-
-    </style>
-
-
-    <style name="DialogTitle">
-        <item name="android:textColor">#000</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
-
-    </style>
-
-    <style name="DialogDescription">
-        <item name="android:textColor">#444</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
-    </style>
-
-    <style name="DialogLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minWidth">280dp</item>
-        <item name="android:padding">16dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-
-    <style name="DialogPositiveButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-    </style>
-
-
-    <style name="DialogNegativeButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
     </style>
 
 </resources>

@@ -22,7 +22,8 @@ class RepoRepoImpl @Inject constructor(
         sort: Repo.Sorting
     ): Observable<ResourceState<List<Repo>>> {
         return twoSideCall(
-            firstCall = { database.repositoryDao().getRepositories(query) },
+            // TODO: Sort the values when fetching locally
+            firstCall = { database.repositoryDao().getRepositories("%$query%") },
             secondCall = { api.searchRepositories(query, sort.value).map { it.items } },
             saveSecondCallData = { repos ->
                 repos.forEach { repo ->
