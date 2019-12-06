@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.luja93.githubreposearch.githubreposearch.model.Repo
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 @Dao
@@ -14,6 +15,6 @@ interface RepoDao : RepoData {
     override fun getRepositories(query: String): Observable<List<Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun saveRepository(repo: Repo)
+    override fun saveRepository(repo: Repo): Completable
 
 }

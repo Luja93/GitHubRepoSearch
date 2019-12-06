@@ -7,6 +7,7 @@ import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.model.User
 import com.luja93.githubreposearch.githubreposearch.repository.repo.RepoData
 import com.luja93.githubreposearch.githubreposearch.repository.user.UserData
+import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -20,8 +21,7 @@ class MockRepo @Inject constructor(
     private val session: SessionPrefImpl
 ) : RepoData, UserData {
 
-    override fun saveRepository(repo: Repo) { /* Do nothing */
-    }
+    override fun saveRepository(repo: Repo): Completable = Completable.complete()
 
     override fun getRepositories(query: String): Observable<List<Repo>> {
         // TODO
@@ -33,8 +33,7 @@ class MockRepo @Inject constructor(
         return Observable.empty()
     }
 
-    override fun saveUser(user: User) { /* Do nothing */
-    }
+    override fun saveUser(user: User): Completable = Completable.complete()
 
 
 }
