@@ -1,0 +1,163 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    compileSdkVersion 28
+    testOptions.unitTests.includeAndroidResources = true
+    defaultConfig {
+        applicationId "com.luja93.GitHubRepoSearch"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_API_URL", "\"https://api.github.com/\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.core:core-ktx:$versions.coreKtx"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    implementation "androidx.legacy:legacy-support-v4:$versions.legacySupportV4"
+
+    //Testing
+    //---------------------------------
+
+    // Dependencies for local unit tests
+    testImplementation "junit:junit:$versions.junit"
+    testImplementation "org.mockito:mockito-core:$versions.mockito"
+    testImplementation "androidx.arch.core:core-testing:$versions.archCore"
+    testImplementation "org.robolectric:robolectric:$versions.roboelectric"
+    testImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    testImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso"
+    testImplementation "androidx.test.espresso:espresso-intents:$versions.espresso"
+    testImplementation "com.google.truth:truth:$versions.truth"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.mockWebServer"
+    testImplementation 'org.robolectric:robolectric:3.8'
+
+    // Dependencies for Android unit tests
+    androidTestImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "org.mockito:mockito-core:$versions.mockito"
+    androidTestImplementation "org.mockito:mockito-android:$versions.mockito"
+//    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexMaker"
+
+    // AndroidX Test - JVM testing
+    testImplementation "androidx.test:core-ktx:$versions.androidxTestCore"
+    testImplementation "androidx.test.ext:junit-ktx:$versions.androidxTestExtKotlinRunner"
+    testImplementation "androidx.test:rules:$versions.androidxTestRules"
+    // Once https://issuetracker.google.com/127986458 is fixed this can be testImplementation
+    implementation "androidx.fragment:fragment-testing:$versions.fragmentTesting"
+    implementation "androidx.fragment:fragment:$versions.fragmentTesting"
+    implementation "androidx.test:core:$versions.testCore"
+
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation "androidx.test:core-ktx:$versions.androidxTestCore"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$versions.androidxTestExtKotlinRunner"
+    androidTestImplementation "androidx.test:rules:$versions.androidxTestRules"
+    androidTestImplementation "androidx.room:room-testing:$versions.room"
+    androidTestImplementation "androidx.arch.core:core-testing:$versions.archCore"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espresso"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$versions.espresso"
+    androidTestImplementation "org.robolectric:annotations:$versions.roboelectric"
+    implementation "androidx.test.espresso:espresso-idling-resource:$versions.espresso"
+
+    kaptTest "com.google.dagger:dagger:$versions.dagger"
+    testImplementation "com.google.dagger:dagger:$versions.dagger"
+
+    //---------------------------------
+
+    // Architecture Components //
+
+    // Room
+    implementation "androidx.room:room-runtime:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+    implementation "androidx.room:room-ktx:$versions.room"
+    implementation "androidx.room:room-rxjava2:$versions.room"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+
+    // Architecture components
+    // RxJava support for Room
+    implementation "android.arch.lifecycle:reactivestreams:$versions.rxRoom"
+    implementation "android.arch.persistence.room:rxjava2:$versions.rxRoom"
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.archLifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.archLifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.archLifecycle"
+
+    //Dagger
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+
+    // Retrofit & Networking
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+    //Firebase
+    implementation "com.google.firebase:firebase-messaging:$versions.firebaseMessaging"
+    implementation "com.google.firebase:firebase-core:$versions.firebaseCore"
+
+    // Crashlytics
+    implementation("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics") {
+        transitive = true
+    }
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+    implementation "com.artemzin.rxjava:proguard-rules:$versions.rxProguard"
+
+    // Parceler
+    implementation "org.parceler:parceler-api:$versions.parceler"
+    kapt "org.parceler:parceler:$versions.parceler"
+
+    // Google Material Design Components
+    implementation "com.google.android.material:material:$versions.material"
+
+    // Various dependencies
+    implementation "com.greysonparrelli.permiso:permiso:$versions.premiso"
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+
+}

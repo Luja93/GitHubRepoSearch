@@ -1,0 +1,26 @@
+<resources>
+  <!-- utils strings, default set -->
+  <string name="send">Send</string>
+  <string name="cancel">Cancel</string>
+  <string name="mail_example">mail@example.com</string>
+  <string name="ef_ok">OK</string>
+  <string name="please_wait">Please wait…</string>
+  <string name="share_via">Share via…</string>
+  <string name="network_error">Network error, check your internet connection.</string>
+  <string name="enable_location">Enable location</string>
+  <string name="skip">Skip</string>
+  <string name="enter_data">Enter data</string>
+  <string name="error_email_invalid">Email invalid</string>
+  <string name="error_password_invalid">Password is too short</string>
+  <string name="error_field_required">This field is required</string>
+  <string name="address">Address</string>
+  <string name="postal">Postal</string>
+  <string name="city">City</string>
+  <string name="name">Name</string>
+  <string name="surname">Surname</string>
+  <string name="check_app_settings_for_location_permission">Check the app settings and enable location permission.</string>
+
+  <string name="general">General</string>
+  <string name="general_notif_info">General notifications</string>
+
+</resources>
