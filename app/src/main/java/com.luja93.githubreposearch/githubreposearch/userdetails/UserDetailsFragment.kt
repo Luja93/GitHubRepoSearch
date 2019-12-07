@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.luja93.githubreposearch.R
+import com.luja93.githubreposearch.common.kotlin.gone
+import com.luja93.githubreposearch.common.kotlin.visible
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
 import com.luja93.githubreposearch.common.mvvm.ResourceStateObserver
 import com.luja93.githubreposearch.githubreposearch.model.User
@@ -66,17 +68,19 @@ class UserDetailsFragment : BaseFragment() {
 
     private fun setupUI() {
         appBarLayout.toolbar.title = username
+        details_group.gone()
     }
 
     private fun bindUI() {
-        // TODO: Handle errors!
-        // TODO: Add placeholder if user is not found or if error ocurred!
         viewModel.user.observe(viewLifecycleOwner, ResourceStateObserver(this, {
             it?.let { user -> setUserDetails(user) }
         }))
     }
 
     private fun setUserDetails(user: User) {
+        details_group.visible()
+        warning_group.gone()
+
         val title = TextViewUtils.setForegroundSpan(
             details_header_view.context,
             user.name,

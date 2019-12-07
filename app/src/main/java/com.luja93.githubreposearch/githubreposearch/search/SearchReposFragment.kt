@@ -91,6 +91,7 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
                 }
             })
 
+        sort_btn.text = Repo.Sorting.Default.name
         sort_btn.setOnClickListener {
             showSortingMenu(it)
         }
