@@ -31,6 +31,7 @@ class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtil
     inner class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(repo: Repo) {
             with(itemView) {
+                // UI binding
                 repo_name_TV.text = repo.name
                 avatar_IV.loadUrl(repo.owner.avatarUrl, false)
                 username_TV.text = TextViewUtils.setForegroundSpan(
@@ -39,9 +40,10 @@ class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtil
                     R.color.colorAccent, 2
                 )
                 forks_count_TV.text = repo.forksCount.toString()
-                watchers_count_TV.text = repo.forksCount.toString()
+                watchers_count_TV.text = repo.watcherCount.toString()
                 issues_count_TV.text = repo.openIssuesCount.toString()
 
+                // Click listeners
                 repo_CV.setOnClickListener { listener?.onRepoClicked(repo) }
                 avatar_IV.setOnClickListener {
                     listener?.onUserClicked(

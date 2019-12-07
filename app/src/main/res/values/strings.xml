@@ -27,6 +27,6 @@
     <string name="no_results_phrase">Seems like there is no such repo here. Check for typos and try again!</string>
     <string name="search_repos_title">GitHub Repo Browser</string>
     <string name="sort_by_phrase">Sort by..</string>
-    <string name="user_not_found_phrase">We can\'t fetch the user data, something is fishy here.. Check your internet connection and try again!</string>
+    <string name="user_not_found_phrase">We can\'t fetch the user data. Something is fishy here.. Check your internet connection and try again!</string>
     <string name="by_phrase">by</string>
 </resources>

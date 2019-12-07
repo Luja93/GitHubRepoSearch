@@ -121,7 +121,7 @@ abstract class BaseRepo (
                         Gson().fromJson(errorBodyString, ApiInterface.GeneralError::class.java)
                     BaseError(generalError.message, errorCode)
                 } catch (e1: JsonSyntaxException) {
-                    Log.i("BasePresenter", "Exception GeneralError: " + e1.message, e1)
+                    Log.i("BaseRepo", "Exception GeneralError: " + e1.message, e1)
                     BaseError("Ups.. Looks like an error occurred.\nPlease try later.")
                 }
             }

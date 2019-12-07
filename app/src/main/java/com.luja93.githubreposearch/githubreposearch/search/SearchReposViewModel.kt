@@ -26,8 +26,8 @@ class SearchReposViewModel @Inject constructor(
     private var query: String = ""
     private var sorting: Repo.Sorting = Repo.Sorting.Default
 
-    fun searchRepositories(query: String) {
-        //if (this.query == query) return else this.query = query
+    fun searchRepositories(query: String, searchIfSameQuery: Boolean = false) {
+        if (this.query == query && !searchIfSameQuery) return else this.query = query
 
         if (query.trim().isNullOrBlank()) {
             _repositories.value =

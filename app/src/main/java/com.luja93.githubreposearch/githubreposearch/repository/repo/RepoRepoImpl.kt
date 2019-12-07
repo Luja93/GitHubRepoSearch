@@ -26,7 +26,7 @@ class RepoRepoImpl @Inject constructor(
         query: String,
         sort: Repo.Sorting
     ): Observable<ResourceState<SearchReposResponse>> {
-        // Since GitHub's search query is a bit more complex than just the SQL "like" operator,
+        // Since GitHub's search query is a bit more complex than just the SQL's "LIKE" operator,
         // fetch local data only when remote call fails.
         return oneSideCall(
             call = {
@@ -41,9 +41,9 @@ class RepoRepoImpl @Inject constructor(
                 database.repositoryDao().getRepositories("%$query%").flatMap {
                     val repos = when (sort) {
                         Repo.Sorting.Default -> it
-                        Repo.Sorting.Forks -> it.sortedBy { repo -> repo.forksCount }
-                        Repo.Sorting.Stars -> it.sortedBy { repo -> repo.watcherCount }
-                        Repo.Sorting.Issues -> it.sortedBy { repo -> repo.openIssuesCount }
+                        Repo.Sorting.Forks -> it.sortedByDescending { repo -> repo.forksCount }
+                        Repo.Sorting.Stars -> it.sortedByDescending { repo -> repo.watcherCount }
+                        Repo.Sorting.Issues -> it.sortedByDescending { repo -> repo.openIssuesCount }
                     }
                     Observable.just(SearchReposResponse(it.count().toLong(), repos))
                 }

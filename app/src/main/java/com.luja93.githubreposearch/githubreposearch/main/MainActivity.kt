@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(),
     private fun setFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .addToBackStack(fragment.tag)
+            .addToBackStack(fragment.javaClass.name)
             .replace(R.id.container, fragment, fragment.javaClass.name)
             .commit()
     }

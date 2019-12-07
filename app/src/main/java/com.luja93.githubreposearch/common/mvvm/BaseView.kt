@@ -1,7 +1,5 @@
 package com.luja93.githubreposearch.common.mvvm
 
-import androidx.annotation.StringRes
-
 /**
  * Created by lleopoldovic on 16/09/2019.
  */
@@ -22,12 +20,6 @@ interface BaseView {
 
     fun showShortInfo(stringResourceId: Int)
 
-    fun showInfoDialog(title: String?, description: String?, buttonText: String?)
-
-    fun showInfoDialog(@StringRes titleResourceId: Int, @StringRes descriptionResourceId: Int, @StringRes buttonText: Int)
-
     fun hideKeyboard()
-
-    fun onLogout()
 
 }

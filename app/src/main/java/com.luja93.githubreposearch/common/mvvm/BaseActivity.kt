@@ -3,20 +3,16 @@ package com.luja93.githubreposearch.common.mvvm
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.luja93.githubreposearch.common.kotlin.visibleIf
 import com.greysonparrelli.permiso.Permiso
 import com.luja93.githubreposearch.R
+import com.luja93.githubreposearch.common.kotlin.visibleIf
 import com.luja93.githubreposearch.common.session.SessionPrefImpl
 import com.luja93.githubreposearch.utils.DialogUtil
 import dagger.android.AndroidInjection
@@ -63,46 +59,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, HasAndroidInjector 
     override fun onResume() {
         super.onResume()
         Permiso.getInstance().setActivity(this)
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /*
-        Permissions funcs:
-     */
-    fun checkPermissionGranted(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun checkPermissionsGranted(vararg permissions: String): Boolean {
-        for (permission in permissions) {
-            if (!checkPermissionGranted(permission)) {
-                return false
-            }
-        }
-        return true
-    }
-
-    fun checkPermissionDenied(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED
-    }
-
-    /**
-     * Check if a permission is denied with "Do not ask again" flag.
-     * In that case, consider hiding the functionality which requires user location.
-     */
-    fun checkPermissionDeniedForGood(permission: String): Boolean {
-        return (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED
-                && !ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
-                && session.checkPermissionAsked(permission))
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Permiso.getInstance().setActivity(this)
-        for (permission in permissions) {
-            session.setPermissionAsked(permission)
-        }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -161,37 +117,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView, HasAndroidInjector 
         }
     }
 
-    override fun showInfoDialog(title: String?, description: String?, buttonText: String?) {
-//        DialogUtil.buildInfoDialog(
-//            this,
-//            title,
-//            description,
-//            buttonText
-//        ).show()
-    }
-
-    override fun showInfoDialog(@StringRes titleResourceId: Int, @StringRes descriptionResourceId: Int, @StringRes buttonText: Int) {
-        showInfoDialog(
-            if (titleResourceId != 0) getString(titleResourceId) else null,
-            if (descriptionResourceId != 0) getString(descriptionResourceId) else null,
-            if (buttonText != 0) getString(buttonText) else null
-        )
-    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /*
-        Other
-     */
-    override fun onLogout() {
-        //TODO: open login page if logged out
-        /*
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK;
-        startActivity(intent)
-        supportFinishAfterTransition()
-        */
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

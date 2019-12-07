@@ -1,13 +1,11 @@
 package com.luja93.githubreposearch.common.kotlin
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -41,7 +39,7 @@ fun ImageView.loadUrl(url: String, crossFade: Boolean = true, onLoadingFinished:
     Glide.with(this)
         .load(url)
         .apply {
-            // keep in mind, CircularImageView library doesn't work with CIV for some reason
+            // CircularImageView library doesn't work with CIV for some reason
             if (crossFade) {
                 transition(DrawableTransitionOptions().crossFade(200))
             }
@@ -49,10 +47,6 @@ fun ImageView.loadUrl(url: String, crossFade: Boolean = true, onLoadingFinished:
         .apply(requestOptions)
         .listener(listener)
         .into(this)
-}
-
-fun ImageView.setDrawable(resId: Int) {
-    setImageDrawable(VectorDrawableCompat.create(resources, resId, null))
 }
 
 fun View.visible() {
@@ -70,6 +64,3 @@ fun View.gone() {
 infix fun View.visibleIf(boolean: Boolean) {
     visibility = if (boolean) VISIBLE else GONE
 }
-
-val Float.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

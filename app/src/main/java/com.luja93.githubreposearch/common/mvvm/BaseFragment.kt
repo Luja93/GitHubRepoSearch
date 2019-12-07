@@ -2,7 +2,6 @@ package com.luja93.githubreposearch.common.mvvm
 
 import android.content.Context
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjector
@@ -86,37 +85,9 @@ abstract class BaseFragment : Fragment(), BaseView, HasAndroidInjector {
         baseActivity?.showLoader(show, cancelable)
     }
 
-    override fun showInfoDialog(title: String?, description: String?, buttonText: String?) {
-        baseActivity?.showInfoDialog(title, description, buttonText)
-    }
-
-    override fun showInfoDialog(@StringRes titleResourceId: Int, @StringRes descriptionResourceId: Int, @StringRes buttonText: Int) {
-        baseActivity?.showInfoDialog(titleResourceId, descriptionResourceId, buttonText)
-    }
-
     override fun hideKeyboard() {
         baseActivity?.hideKeyboard()
     }
-
-    override fun onLogout() {
-        baseActivity?.onLogout()
-    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    /*
-        Permissions funcs:
-     */
-    protected fun checkPermissionGranted(permission: String): Boolean {
-        return baseActivity?.checkPermissionGranted(permission) == true
-    }
-
-    protected fun checkPermissionsGranted(vararg permissions: String): Boolean {
-        return baseActivity?.checkPermissionsGranted(*permissions) == true
-    }
-
-    protected fun checkPermissionDeniedForGood(permission: String): Boolean {
-        return baseActivity?.checkPermissionDeniedForGood(permission) == true
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
 }

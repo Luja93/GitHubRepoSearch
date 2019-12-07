@@ -9,6 +9,10 @@ import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.kotlin.loadUrl
 import kotlinx.android.synthetic.main.item_details_header.view.*
 
+/**
+ * Created by lleopoldovic on 07/12/2019.
+ */
+
 class DetailsHeaderView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {

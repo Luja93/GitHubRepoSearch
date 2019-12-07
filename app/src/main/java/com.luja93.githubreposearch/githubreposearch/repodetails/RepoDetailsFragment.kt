@@ -84,6 +84,7 @@ class RepoDetailsFragment : BaseFragment() {
             getString(R.string.updated_at, repo.updatedAt)
         )
 
+        // Details card setup
         fork_details_DTV.setDetails(getString(R.string.forks_phrase), repo.forksCount.toString())
         watchers_details_DTV.setDetails(
             getString(R.string.watchers_phrase),
@@ -104,6 +105,7 @@ class RepoDetailsFragment : BaseFragment() {
             )
         )
 
+        // Click listeners
         details_header_view.avatar_IV.setOnClickListener {
             listener?.onUserClicked(repo.owner.id, repo.owner.username)
         }

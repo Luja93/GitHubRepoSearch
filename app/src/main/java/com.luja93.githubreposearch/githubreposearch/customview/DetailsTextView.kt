@@ -7,6 +7,10 @@ import android.widget.LinearLayout
 import com.luja93.githubreposearch.R
 import kotlinx.android.synthetic.main.item_details_text.view.*
 
+/**
+ * Created by lleopoldovic on 07/12/2019.
+ */
+
 class DetailsTextView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {

@@ -11,7 +11,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -171,7 +170,8 @@ abstract class BaseViewModel(private val schedulers: SchedulerProvider) : ViewMo
                 ResourceState(
                     rs.status,
                     data.filter { filter(it) },
-                    rs.error)
+                    rs.error
+                )
             } ?: rs
         }
     }

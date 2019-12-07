@@ -92,6 +92,7 @@ class UserDetailsFragment : BaseFragment() {
             getString(R.string.updated_at, user.updatedAt)
         )
 
+        // Details card data
         type_details_DTV.setDetails(getString(R.string.type_phrase), user.type)
         email_details_DTV.setDetails(
             getString(R.string.email_phrase),
@@ -126,6 +127,7 @@ class UserDetailsFragment : BaseFragment() {
             user.bio ?: getString(R.string.not_defined_phrase)
         )
 
+        // Click listeners
         show_more_TV.setOnClickListener {
             CustomTabUtils.openInBrowser(show_more_TV.context, user.url)
         }

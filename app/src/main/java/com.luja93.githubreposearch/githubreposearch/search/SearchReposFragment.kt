@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.kotlin.visibleIf
@@ -35,8 +34,6 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
     companion object {
         fun newInstance() = SearchReposFragment()
     }
-
-    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     private val viewModel: SearchReposViewModel by viewModels { viewModelFactory }
     private val reposAdapter: ReposAdapter = ReposAdapter()
@@ -98,9 +95,11 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
     }
 
     private fun bindUI() {
-        viewModel.repositories.observe(viewLifecycleOwner, ResourceStateObserver(this, {
-            it?.let { setResults(it) }
-        }, onLoading = { appBarLayout.toolbarProgressCircle.visibleIf(it) }))
+        viewModel.repositories.observe(
+            viewLifecycleOwner, ResourceStateObserver(this,
+                onSuccess = { it?.let { setResults(it) } },
+                onLoading = { appBarLayout.toolbarProgressCircle.visibleIf(it) })
+        )
     }
 
     private fun setResults(searchResults: SearchReposResponse) {
@@ -125,7 +124,7 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
 
         menu.setOnMenuItemClickListener {
             viewModel.setSortingOption(it.itemId)
-            viewModel.searchRepositories(search_repos_ET.text.toString())
+            viewModel.searchRepositories(search_repos_ET.text.toString(), true)
             sort_btn.text = it.title
             true
         }

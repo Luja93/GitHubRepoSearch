@@ -17,7 +17,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRepositoryRepo(repositoryRepoImpl: RepoRepoImpl): RepoRepo = repositoryRepoImpl
+    fun provideRepoRepo(repoRepoImpl: RepoRepoImpl): RepoRepo = repoRepoImpl
 
     @Provides
     @Singleton

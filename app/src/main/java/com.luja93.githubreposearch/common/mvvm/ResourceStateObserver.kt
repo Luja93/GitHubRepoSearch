@@ -3,7 +3,6 @@ package com.luja93.githubreposearch.common.mvvm
 import androidx.lifecycle.Observer
 import com.luja93.githubreposearch.common.mvvm.basemodels.BaseError
 import com.luja93.githubreposearch.common.mvvm.basemodels.ResourceState
-import com.luja93.githubreposearch.common.mvvm.basemodels.ResponseCodes
 import com.luja93.githubreposearch.common.mvvm.basemodels.Status
 
 /**
@@ -36,7 +35,7 @@ class ResourceStateObserver<T>(
             )
             // If a response code needs to be handled specifically, add the new case here
             when (t.error?.errorCode) {
-                ResponseCodes.UNAUTHORIZED.code -> view.onLogout()
+                /* not defined */
             }
         } else if (t?.status == Status.SUCCESS) {
             // Success state handler

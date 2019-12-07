@@ -6,10 +6,4 @@ package com.luja93.githubreposearch.common.session
 
 interface Session {
 
-    var token: String
-
-    fun checkPermissionAsked(permission: String): Boolean
-
-    fun setPermissionAsked(permission: String)
-
 }
