@@ -2,5 +2,9 @@
 <resources>
 
     <dimen name="toolbar_title_text_size">20sp</dimen>
+    <dimen name="avatar_width">60dp</dimen>
+    <dimen name="avatar_height">60dp</dimen>
+    <dimen name="default_padding_small">8dp</dimen>
+    <dimen name="default_padding_medium">16dp</dimen>
 
 </resources>

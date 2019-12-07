@@ -19,13 +19,13 @@
             android:id="@+id/search_repos_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="@dimen/default_padding_medium"
+            android:layout_marginEnd="@dimen/default_padding_medium"
+            android:layout_marginBottom="@dimen/default_padding_small"
             android:maxLines="1"
             android:textColor="@color/textColorPrimary"
             android:textColorHint="@color/textColorSecondary"
-            android:hint="Search repos.." />
+            android:hint="@string/search_repos_phrase" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,10 +33,10 @@
         android:id="@+id/repos_RV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        android:layout_marginEnd="@dimen/default_padding_medium"
         android:paddingBottom="40dp"
-        android:paddingTop="16dp"
+        android:paddingTop="@dimen/default_padding_medium"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintBottom_toBottomOf="parent" />

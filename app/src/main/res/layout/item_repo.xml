@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="5dp">
+    android:background="@color/colorPrimary"
+    app:cardCornerRadius="10dp">
 
     <!--TODO: Extract dimension resources! Including margins/paddings in activity/fragment-->
     <!--TODO: Extract text styles!-->
@@ -12,36 +13,132 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/default_padding_small"
         android:background="@color/colorPrimary">
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/avatar_IV"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/avatar_width"
+            android:layout_height="@dimen/avatar_height"
             android:scaleType="centerCrop"
+            app:civ_border="true"
+            app:civ_border_color="@color/textColorSecondary"
+            app:civ_border_width="3dp"
+            app:civ_shadow="true"
+            app:civ_shadow_color="@color/colorPrimaryDark"
+            app:civ_shadow_radius="10"
+            app:civ_circle_color="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/username_TV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColorSecondary"
-            app:layout_constraintStart_toEndOf="@id/avatar_IV"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Username" />
-
-        <TextView
             android:id="@+id/repo_name_TV"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/textColorPrimary"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:layout_marginStart="@dimen/default_padding_small"
+            android:layout_marginEnd="@dimen/default_padding_medium"
             app:layout_constraintStart_toEndOf="@id/avatar_IV"
-            app:layout_constraintTop_toBottomOf="@id/username_TV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="Repo name" />
+
+        <TextView
+            android:id="@+id/username_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            app:layout_constraintStart_toStartOf="@id/repo_name_TV"
+            app:layout_constraintEnd_toEndOf="@id/repo_name_TV"
+            app:layout_constraintTop_toBottomOf="@id/repo_name_TV"
+            tools:text="Username" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:alpha="0.3"
+            android:background="@color/textColorSecondary"
+            app:layout_constraintStart_toStartOf="@id/forks_TV"
+            app:layout_constraintEnd_toEndOf="@id/issues_TV"
+            app:layout_constraintTop_toBottomOf="@id/username_TV"
+            app:layout_constraintBottom_toTopOf="@id/issues_TV" />
+
+        <TextView
+            android:id="@+id/forks_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding_medium"
+            android:textColor="@color/textColorSecondary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@id/repo_name_TV"
+            app:layout_constraintTop_toBottomOf="@id/username_TV"
+            app:layout_constraintEnd_toStartOf="@id/watchers_TV"
+            app:layout_constraintWidth_default="wrap"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:text="@string/forks_phrase" />
+
+        <TextView
+            android:id="@+id/watchers_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/forks_TV"
+            app:layout_constraintEnd_toStartOf="@id/issues_TV"
+            app:layout_constraintTop_toTopOf="@id/forks_TV"
+            android:text="@string/watchers_phrase" />
+
+        <TextView
+            android:id="@+id/issues_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/watchers_TV"
+            app:layout_constraintEnd_toEndOf="@id/repo_name_TV"
+            app:layout_constraintTop_toTopOf="@id/forks_TV"
+            app:layout_constraintWidth_default="wrap"
+            android:text="@string/issues_phrase" />
+
+
+        <TextView
+            android:id="@+id/forks_count_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding_small"
+            android:textColor="@color/textColorSecondary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@id/forks_TV"
+            app:layout_constraintTop_toBottomOf="@id/forks_TV"
+            app:layout_constraintEnd_toEndOf="@id/forks_TV"
+            app:layout_constraintWidth_default="wrap"
+            tools:text="4424" />
+
+        <TextView
+            android:id="@+id/watchers_count_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@id/watchers_TV"
+            app:layout_constraintEnd_toEndOf="@id/watchers_TV"
+            app:layout_constraintTop_toTopOf="@id/forks_count_TV"
+            tools:text="9" />
+
+        <TextView
+            android:id="@+id/issues_count_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@id/issues_TV"
+            app:layout_constraintEnd_toEndOf="@id/issues_TV"
+            app:layout_constraintTop_toTopOf="@id/forks_count_TV"
+            tools:text="13" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

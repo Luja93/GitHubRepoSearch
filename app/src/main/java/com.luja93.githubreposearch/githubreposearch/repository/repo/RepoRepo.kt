@@ -4,6 +4,9 @@ import com.luja93.githubreposearch.common.mvvm.basemodels.ResourceState
 import com.luja93.githubreposearch.githubreposearch.model.Repo
 import io.reactivex.Observable
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
 
 interface RepoRepo /* Unfortunate naming */ {
 

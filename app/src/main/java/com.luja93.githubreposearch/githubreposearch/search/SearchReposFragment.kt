@@ -18,6 +18,10 @@ import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
+
 class SearchReposFragment : BaseFragment() {
 
     companion object {
@@ -49,12 +53,12 @@ class SearchReposFragment : BaseFragment() {
 
         repos_RV.layoutManager = LinearLayoutManager(repos_RV.context)
         repos_RV.isMotionEventSplittingEnabled = false
-        repos_RV.addItemDecoration(VerticalOffsetDecoration(repos_RV.context, 8f))
+        repos_RV.addItemDecoration(VerticalOffsetDecoration(repos_RV.context, 16f))
         repos_RV.adapter = reposAdapter
 
         // TODO: Extract 400 to a global const
         RxTextView.textChanges(search_repos_ET)
-            .debounce(400, TimeUnit.MILLISECONDS)
+            .debounce(600, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Subscriber<CharSequence>() {
                 override fun onCompleted() {}

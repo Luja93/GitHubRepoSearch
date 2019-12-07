@@ -21,7 +21,7 @@ buildscript {
             'androidxTestRules'           : "1.2.0-beta01",
             'fragmentTesting'             : "1.1.0",
             'testCore'                    : "1.2.0",
-            'room'                        : "2.2.0",
+            'room'                        : "2.2.2",
             'navigation'                  : "2.2.0-beta01",
             'archLifecycle'               : "2.2.0-beta01",
             'rxRoom'                      : "1.1.1",
@@ -39,7 +39,8 @@ buildscript {
             'premiso'                     : "0.3.0",
             'glide'                       : "4.9.0",
             'threetenabp'                 : "1.2.1",
-            'rxbinding'                   : "0.4.0"
+            'rxbinding'                   : "0.4.0",
+            'circularimageview'           : "4.1.1"
     ]
 
     repositories {

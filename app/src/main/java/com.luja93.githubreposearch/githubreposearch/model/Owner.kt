@@ -5,6 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
+
 @Entity
 data class Owner(
     @PrimaryKey

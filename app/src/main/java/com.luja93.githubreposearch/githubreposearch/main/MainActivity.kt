@@ -7,6 +7,10 @@ import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.mvvm.BaseActivity
 import com.luja93.githubreposearch.githubreposearch.search.SearchReposFragment
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
+
 class MainActivity : BaseActivity() {
 
     private val searchFragment: SearchReposFragment by lazy { SearchReposFragment.newInstance() }

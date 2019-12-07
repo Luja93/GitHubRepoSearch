@@ -10,6 +10,10 @@ import com.luja93.githubreposearch.githubreposearch.repository.mock.MockRepo
 import io.reactivex.Observable
 import javax.inject.Inject
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
+
 class UserRepoImpl @Inject constructor(
     private val database: AppDatabase,
     private val api: ApiInterface,

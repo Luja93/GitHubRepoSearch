@@ -21,7 +21,8 @@ class MockRepo @Inject constructor(
     private val session: SessionPrefImpl
 ) : RepoData, UserData {
 
-    override fun saveRepository(repo: Repo): Completable = Completable.complete()
+    override fun saveRepository(repo: Repo) { /* not implemented */
+    }
 
     override fun getRepositories(query: String): Observable<List<Repo>> {
         // TODO

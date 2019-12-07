@@ -8,6 +8,10 @@ import com.luja93.githubreposearch.githubreposearch.model.User
 import io.reactivex.Completable
 import io.reactivex.Observable
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
+
 @Dao
 interface UserDao : UserData {
 

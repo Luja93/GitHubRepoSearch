@@ -10,6 +10,10 @@ import com.luja93.githubreposearch.githubreposearch.repository.mock.MockRepo
 import io.reactivex.Observable
 import javax.inject.Inject
 
+/**
+ * Created by lleopoldovic on 06/12/2019.
+ */
+
 class RepoRepoImpl @Inject constructor(
     private val database: AppDatabase,
     private val api: ApiInterface,
@@ -21,15 +25,16 @@ class RepoRepoImpl @Inject constructor(
         query: String,
         sort: Repo.Sorting
     ): Observable<ResourceState<List<Repo>>> {
-        return twoSideCall(
-            // TODO: Sort the values when fetching locally
-            firstCall = { database.repositoryDao().getRepositories("%$query%") },
-            secondCall = { api.searchRepositories(query, sort.value).map { it.items } },
-            saveSecondCallData = { repos ->
+        // Since GitHub does a bit more complex search than just the SQL "like" operator,
+        // fetch local data only when remote call fails.
+        return oneSideCall(
+            call = { api.searchRepositories(query, sort.value).map { it.items } },
+            saveCallData = { repos ->
                 repos.forEach { repo ->
                     database.repositoryDao().saveRepository(repo)
                 }
-            }
+            },
+            performOnError = { database.repositoryDao().getRepositories("%$query%") }
         )
     }
 
