@@ -103,13 +103,13 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
         listener?.onRepoClicked(repo)
     }
 
-    override fun onUserClicked(username: String) {
-        listener?.onUserClicked(username)
+    override fun onUserClicked(id: Long, username: String) {
+        listener?.onUserClicked(id, username)
     }
 
 
     interface OnSearchReposFragmentInteractionListener {
         fun onRepoClicked(repo: Repo)
-        fun onUserClicked(username: String)
+        fun onUserClicked(id: Long, username: String)
     }
 }

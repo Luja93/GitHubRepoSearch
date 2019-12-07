@@ -8,6 +8,7 @@ import com.luja93.githubreposearch.common.mvvm.BaseActivity
 import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.repodetails.RepoDetailsFragment
 import com.luja93.githubreposearch.githubreposearch.search.SearchReposFragment
+import com.luja93.githubreposearch.githubreposearch.userdetails.UserDetailsFragment
 
 /**
  * Created by lleopoldovic on 06/12/2019.
@@ -51,7 +52,7 @@ class MainActivity : BaseActivity(),
         setFragment(RepoDetailsFragment.newInstance(repo))
     }
 
-    override fun onUserClicked(username: String) {
-        // TODO: Set user details fragment
+    override fun onUserClicked(id: Long, username: String) {
+        setFragment(UserDetailsFragment.newInstance(id, username))
     }
 }

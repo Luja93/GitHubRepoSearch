@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.luja93.githubreposearch.githubreposearch.model.User
-import io.reactivex.Completable
 import io.reactivex.Observable
 
 /**
@@ -19,6 +18,6 @@ interface UserDao : UserData {
     override fun getUser(id: Long): Observable<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun saveUser(user: User): Completable
+    override fun saveUser(user: User)
 
 }

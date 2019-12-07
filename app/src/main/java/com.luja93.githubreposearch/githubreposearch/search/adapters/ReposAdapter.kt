@@ -43,8 +43,18 @@ class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtil
                 issues_count_TV.text = repo.openIssuesCount.toString()
 
                 repo_CV.setOnClickListener { listener?.onRepoClicked(repo) }
-                avatar_IV.setOnClickListener { listener?.onUserClicked(repo.owner.username) }
-                username_TV.setOnClickListener { listener?.onUserClicked(repo.owner.username) }
+                avatar_IV.setOnClickListener {
+                    listener?.onUserClicked(
+                        repo.owner.id,
+                        repo.owner.username
+                    )
+                }
+                username_TV.setOnClickListener {
+                    listener?.onUserClicked(
+                        repo.owner.id,
+                        repo.owner.username
+                    )
+                }
             }
         }
     }
@@ -61,6 +71,6 @@ class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtil
 
     interface OnRepoInteractionListener {
         fun onRepoClicked(repo: Repo)
-        fun onUserClicked(username: String)
+        fun onUserClicked(id: Long, username: String)
     }
 }

@@ -15,4 +15,14 @@
     <string name="show_details_phrase">Show details</string>
     <string name="created_at">Created at: %s</string>
     <string name="updated_at">Updated at: %s</string>
+    <string name="type_phrase">Type:</string>
+    <string name="email_phrase">Email:</string>
+    <string name="unavailable_phrase">Unavailable</string>
+    <string name="location_phrase">Location:</string>
+    <string name="public_repos_phrase">Public repos:</string>
+    <string name="public_gists_phrase">Public gists:</string>
+    <string name="followers_phrase">Followers:</string>
+    <string name="following_phrase">Following:</string>
+    <string name="bio_phrase">Bio:</string>
+    <string name="not_defined_phrase">Undefined</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.luja93.githubreposearch.common.dagger.qualifiers.ViewModelKey
 import com.luja93.githubreposearch.common.mvvm.ViewModelFactory
 import com.luja93.githubreposearch.githubreposearch.search.SearchReposViewModel
+import com.luja93.githubreposearch.githubreposearch.userdetails.UserDetailsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -23,6 +24,11 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(SearchReposViewModel::class)
-    abstract fun bindIntroViewModel(introViewModel: SearchReposViewModel): ViewModel
+    abstract fun bindSearchReposViewModel(searchReposViewModel: SearchReposViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserDetailsViewModel::class)
+    abstract fun bindUserDetailsViewModel(userDetailsViewModel: UserDetailsViewModel): ViewModel
 
 }

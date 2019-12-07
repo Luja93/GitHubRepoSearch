@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.luja93.githubreposearch.R
-import com.luja93.githubreposearch.common.kotlin.loadUrl
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
 import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.utils.CustomTabUtils
 import com.luja93.githubreposearch.utils.TextViewUtils
 import kotlinx.android.synthetic.main.fragment_repo_details.*
+import kotlinx.android.synthetic.main.item_details_header.view.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import org.parceler.Parcels
 
@@ -74,14 +74,17 @@ class RepoDetailsFragment : BaseFragment() {
     private fun setupUI() {
         appBarLayout.toolbar.title = repo.name
 
-        avatar_IV.loadUrl(repo.owner.avatarUrl, false)
-        username_TV.text = TextViewUtils.setForegroundSpan(
-            username_TV.context,
-            username_TV.context.getString(R.string.made_by_phrase, repo.owner.username),
+        val title = TextViewUtils.setForegroundSpan(
+            appBarLayout.context,
+            appBarLayout.context.getString(R.string.made_by_phrase, repo.owner.username),
             R.color.colorAccent, 2
         )
-        created_at_TV.text = getString(R.string.created_at, repo.createdAt)
-        updated_at_TV.text = getString(R.string.updated_at, repo.updatedAt)
+        details_header_view.setHeaderDetails(
+            repo.owner.avatarUrl,
+            title,
+            getString(R.string.created_at, repo.createdAt),
+            getString(R.string.updated_at, repo.updatedAt)
+        )
 
         fork_details_DTV.setDetails(getString(R.string.forks_phrase), repo.forksCount.toString())
         watchers_details_DTV.setDetails(
@@ -103,11 +106,11 @@ class RepoDetailsFragment : BaseFragment() {
             )
         )
 
-        avatar_IV.setOnClickListener {
-            listener?.onUserClicked(repo.owner.username)
+        details_header_view.avatar_IV.setOnClickListener {
+            listener?.onUserClicked(repo.owner.id, repo.owner.username)
         }
-        username_TV.setOnClickListener {
-            listener?.onUserClicked(repo.owner.username)
+        details_header_view.title_TV.setOnClickListener {
+            listener?.onUserClicked(repo.owner.id, repo.owner.username)
         }
         show_more_TV.setOnClickListener {
             CustomTabUtils.openInBrowser(desc_details_DTV.context, repo.url)
@@ -115,6 +118,6 @@ class RepoDetailsFragment : BaseFragment() {
     }
 
     interface OnRepoDetailsFragmentInteractionListener {
-        fun onUserClicked(username: String)
+        fun onUserClicked(id: Long, username: String)
     }
 }

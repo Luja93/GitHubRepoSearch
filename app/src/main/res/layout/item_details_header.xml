@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/avatar_IV"
+        android:layout_width="@dimen/avatar_width_large"
+        android:layout_height="@dimen/avatar_height_large"
+        android:layout_marginTop="@dimen/default_padding_medium"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        android:scaleType="centerCrop"
+        app:civ_border="true"
+        app:civ_border_color="@color/textColorSecondary"
+        app:civ_border_width="3dp"
+        app:civ_shadow="true"
+        app:civ_shadow_color="@color/colorPrimaryDark"
+        app:civ_shadow_radius="10"
+        app:civ_circle_color="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+    <TextView
+        android:id="@+id/title_TV"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        app:layout_constraintStart_toEndOf="@id/avatar_IV"
+        app:layout_constraintTop_toTopOf="@id/avatar_IV"
+        app:layout_constraintBottom_toTopOf="@id/desc1_TV"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:text="Username" />
+
+    <TextView
+        android:id="@+id/desc1_TV"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/title_TV"
+        app:layout_constraintTop_toBottomOf="@id/title_TV"
+        app:layout_constraintBottom_toTopOf="@id/desc2_TV"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:text="Created at: 12/07/2012 at 21:42" />
+
+    <TextView
+        android:id="@+id/desc2_TV"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/title_TV"
+        app:layout_constraintTop_toBottomOf="@id/desc1_TV"
+        app:layout_constraintBottom_toBottomOf="@id/avatar_IV"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:text="Created at: 12/07/2012 at 21:42" />
+
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/default_padding_medium"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        android:layout_marginEnd="@dimen/default_padding_medium"
+        app:layout_constraintTop_toBottomOf="@id/avatar_IV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
