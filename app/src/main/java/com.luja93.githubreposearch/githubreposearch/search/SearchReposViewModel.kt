@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.luja93.githubreposearch.common.mvvm.BaseViewModel
 import com.luja93.githubreposearch.common.mvvm.basemodels.ResourceState
 import com.luja93.githubreposearch.common.scheduler.SchedulerProvider
+import com.luja93.githubreposearch.githubreposearch.AppConstants.BLANK_SEARCH
 import com.luja93.githubreposearch.githubreposearch.model.Repo
+import com.luja93.githubreposearch.githubreposearch.model.api.SearchReposResponse
 import com.luja93.githubreposearch.githubreposearch.repository.repo.RepoRepo
 import javax.inject.Inject
 
@@ -18,12 +20,17 @@ class SearchReposViewModel @Inject constructor(
     private val repoRepo: RepoRepo
 ) : BaseViewModel(schedulers) {
 
-    private val _repositories = MutableLiveData<ResourceState<List<Repo>>>()
-    val repositories: LiveData<ResourceState<List<Repo>>> = _repositories
+    private val _repositories = MutableLiveData<ResourceState<SearchReposResponse>>()
+    val repositories: LiveData<ResourceState<SearchReposResponse>> = _repositories
+
+    private var query: String = ""
 
     fun searchRepositories(query: String) {
+        if (this.query == query) return else this.query = query
+
         if (query.trim().isNullOrBlank()) {
-            _repositories.value = ResourceState.success(emptyList())
+            _repositories.value =
+                ResourceState.success(SearchReposResponse(BLANK_SEARCH, emptyList()))
         } else {
             observableCall(_repositories, {
                 repoRepo.getRepositories(query, Repo.Sorting.Undefined)

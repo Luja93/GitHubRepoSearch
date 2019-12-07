@@ -12,8 +12,10 @@ import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.kotlin.visibleIf
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
 import com.luja93.githubreposearch.common.mvvm.ResourceStateObserver
+import com.luja93.githubreposearch.githubreposearch.AppConstants.BLANK_SEARCH
 import com.luja93.githubreposearch.githubreposearch.AppConstants.DEBOUNCE_TIME_MILLIS
 import com.luja93.githubreposearch.githubreposearch.model.Repo
+import com.luja93.githubreposearch.githubreposearch.model.api.SearchReposResponse
 import com.luja93.githubreposearch.githubreposearch.search.adapters.ReposAdapter
 import com.luja93.githubreposearch.utils.view.VerticalOffsetDecoration
 import kotlinx.android.synthetic.main.fragment_search_repos.*
@@ -91,10 +93,21 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
 
     private fun bindUI() {
         viewModel.repositories.observe(viewLifecycleOwner, ResourceStateObserver(this, {
-            it?.let {
-                reposAdapter.submitList(it)
-            }
+            it?.let { setResults(it) }
         }, onLoading = { appBarLayout.toolbarProgressCircle.visibleIf(it) }))
+    }
+
+    private fun setResults(searchResults: SearchReposResponse) {
+        reposAdapter.submitList(searchResults.items)
+
+        repos_RV.visibleIf(searchResults.items.isNotEmpty())
+        instructions_group.visibleIf(searchResults.items.isEmpty())
+
+        instructions_TV.text = if (searchResults.totalCount == BLANK_SEARCH) {
+            getString(R.string.intructions_phrase)
+        } else {
+            getString(R.string.no_results_phrase)
+        }
     }
 
 

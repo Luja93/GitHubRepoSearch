@@ -6,6 +6,7 @@ import com.luja93.githubreposearch.common.mvvm.BaseRepo
 import com.luja93.githubreposearch.common.mvvm.basemodels.ResourceState
 import com.luja93.githubreposearch.common.session.SessionPrefImpl
 import com.luja93.githubreposearch.githubreposearch.model.Repo
+import com.luja93.githubreposearch.githubreposearch.model.api.SearchReposResponse
 import com.luja93.githubreposearch.githubreposearch.repository.mock.MockRepo
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -24,17 +25,23 @@ class RepoRepoImpl @Inject constructor(
     override fun getRepositories(
         query: String,
         sort: Repo.Sorting
-    ): Observable<ResourceState<List<Repo>>> {
-        // Since GitHub does a bit more complex search than just the SQL "like" operator,
+    ): Observable<ResourceState<SearchReposResponse>> {
+        // Since GitHub's search query is a bit more complex than just the SQL "like" operator,
         // fetch local data only when remote call fails.
         return oneSideCall(
-            call = { api.searchRepositories(query, sort.value).map { it.items } },
-            saveCallData = { repos ->
-                repos.forEach { repo ->
+            call = {
+                api.searchRepositories(query, sort.value)
+            },
+            saveCallData = { response ->
+                response.items.forEach { repo ->
                     database.repositoryDao().saveRepository(repo)
                 }
             },
-            performOnError = { database.repositoryDao().getRepositories("%$query%") }
+            performOnError = {
+                database.repositoryDao().getRepositories("%$query%").flatMap {
+                    Observable.just(SearchReposResponse(it.count().toLong(), it))
+                }
+            }
         )
     }
 

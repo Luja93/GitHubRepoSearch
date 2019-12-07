@@ -8,6 +8,8 @@ import com.luja93.githubreposearch.githubreposearch.model.Repo
  */
 
 data class SearchReposResponse(
+    @SerializedName("total_count")
+    val totalCount: Long,
     @SerializedName("items")
     val items: List<Repo>
 ) {

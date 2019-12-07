@@ -14,6 +14,10 @@ import com.luja93.githubreposearch.utils.TextViewUtils
 import kotlinx.android.synthetic.main.fragment_user_details.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
+/**
+ * Created by lleopoldovic on 07/12/2019.
+ */
+
 class UserDetailsFragment : BaseFragment() {
 
     companion object {

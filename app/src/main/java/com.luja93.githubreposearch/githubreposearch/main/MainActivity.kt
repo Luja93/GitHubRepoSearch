@@ -2,7 +2,6 @@ package com.luja93.githubreposearch.githubreposearch.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.mvvm.BaseActivity
 import com.luja93.githubreposearch.githubreposearch.model.Repo
@@ -28,14 +27,9 @@ class MainActivity : BaseActivity(),
     }
 
     private fun setFragment(fragment: Fragment) {
-        setFragment(fragment, true)
-    }
-
-    private fun setFragment(fragment: Fragment, animate: Boolean) {
         supportFragmentManager
             .beginTransaction()
             .addToBackStack(fragment.tag)
-            .setTransition(if (animate) FragmentTransaction.TRANSIT_FRAGMENT_OPEN else FragmentTransaction.TRANSIT_NONE)
             .replace(R.id.container, fragment, fragment.javaClass.name)
             .commit()
     }
