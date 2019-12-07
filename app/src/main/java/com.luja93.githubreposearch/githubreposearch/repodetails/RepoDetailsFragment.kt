@@ -22,8 +22,6 @@ import org.parceler.Parcels
 class RepoDetailsFragment : BaseFragment() {
 
     companion object {
-        const val TAG = "RepoDetailsFragment"
-
         private const val ARG_KEY_REPO = "argKeyRepo"
 
         fun newInstance(repo: Repo) = RepoDetailsFragment().apply {

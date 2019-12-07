@@ -39,7 +39,13 @@ class RepoRepoImpl @Inject constructor(
             },
             performOnError = {
                 database.repositoryDao().getRepositories("%$query%").flatMap {
-                    Observable.just(SearchReposResponse(it.count().toLong(), it))
+                    val repos = when (sort) {
+                        Repo.Sorting.Default -> it
+                        Repo.Sorting.Forks -> it.sortedBy { repo -> repo.forksCount }
+                        Repo.Sorting.Stars -> it.sortedBy { repo -> repo.watcherCount }
+                        Repo.Sorting.Issues -> it.sortedBy { repo -> repo.openIssuesCount }
+                    }
+                    Observable.just(SearchReposResponse(it.count().toLong(), repos))
                 }
             }
         )

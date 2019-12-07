@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/repo_name_TV"
-            style="@style/Title"
+            style="@style/Title.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_padding_small"

@@ -24,17 +24,22 @@ class SearchReposViewModel @Inject constructor(
     val repositories: LiveData<ResourceState<SearchReposResponse>> = _repositories
 
     private var query: String = ""
+    private var sorting: Repo.Sorting = Repo.Sorting.Default
 
     fun searchRepositories(query: String) {
-        if (this.query == query) return else this.query = query
+        //if (this.query == query) return else this.query = query
 
         if (query.trim().isNullOrBlank()) {
             _repositories.value =
                 ResourceState.success(SearchReposResponse(BLANK_SEARCH, emptyList()))
         } else {
             observableCall(_repositories, {
-                repoRepo.getRepositories(query, Repo.Sorting.Undefined)
+                repoRepo.getRepositories(query, sorting)
             })
         }
+    }
+
+    fun setSortingOption(position: Int) {
+        sorting = Repo.Sorting.values()[position]
     }
 }

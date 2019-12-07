@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">GitHubRepoSearch</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forks_phrase">Forks:</string>
     <string name="watchers_phrase">Watchers:</string>
     <string name="issues_phrase">Issues:</string>
@@ -25,6 +23,8 @@
     <string name="following_phrase">Following:</string>
     <string name="bio_phrase">Bio:</string>
     <string name="not_defined_phrase">Undefined</string>
-    <string name="intructions_phrase">Write a word and search through GitHub repos!</string>
+    <string name="instructions_phrase">Write a word and search through GitHub repos!</string>
     <string name="no_results_phrase">Seems like there is no such repo here. Check for typos and try again!</string>
+    <string name="search_repos_title">GitHub Repo Browser</string>
+    <string name="sort_by_phrase">Sort by..</string>
 </resources>

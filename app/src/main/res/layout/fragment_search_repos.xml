@@ -15,17 +15,90 @@
 
         <include layout="@layout/toolbar_layout" />
 
-        <EditText
-            android:id="@+id/search_repos_ET"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_padding_medium"
             android:layout_marginEnd="@dimen/default_padding_medium"
-            android:layout_marginBottom="@dimen/default_padding_small"
-            android:maxLines="1"
-            android:textColor="@color/textColorPrimary"
-            android:textColorHint="@color/textColorSecondary"
-            android:hint="@string/search_repos_phrase" />
+            android:layout_marginBottom="@dimen/default_padding_small">
+
+            <EditText
+                android:id="@+id/search_repos_ET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_padding_small"
+                android:textAppearance="@style/Input"
+                android:hint="@string/search_repos_phrase"
+                android:textColorHint="@color/textColorSecondary"
+                android:textColor="@color/textColorPrimary"
+                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/sort_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sort_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="120dp"
+                android:textAppearance="@style/Input"
+                android:paddingStart="@dimen/default_padding_medium"
+                android:paddingEnd="@dimen/default_padding_medium"
+                android:textAlignment="center"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/search_repos_ET"
+                app:layout_constraintBottom_toBottomOf="@id/search_repos_ET"
+                android:text="@string/sort_by_phrase" />
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                style="@style/TextInputLayoutStyle"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginEnd="@dimen/default_padding_medium"-->
+            <!--                app:boxBackgroundColor="@color/colorPrimaryDark"-->
+            <!--                app:boxStrokeColor="@color/colorPrimaryDark"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/sort_TIL"-->
+            <!--                app:hintTextColor="@color/colorPrimary"-->
+            <!--                android:textColorHint="@color/colorPrimary"-->
+            <!--                android:hint="@string/search_repos_phrase">-->
+
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/search_repos_ET"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:textColor="@color/textColorPrimary"-->
+            <!--                    android:maxLines="1"/>-->
+
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/sort_TIL"-->
+            <!--                style="@style/DropdownTextInputLayoutStyle"-->
+            <!--                app:boxBackgroundColor="@color/colorPrimaryDark"-->
+            <!--                android:background="@null"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:minWidth="120dp"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent">-->
+
+            <!--                <AutoCompleteTextView-->
+            <!--                    android:id="@+id/sort_ACTV"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:textColor="@color/textColorPrimary"-->
+            <!--                    android:cursorVisible="false"-->
+            <!--                    android:focusable="false"-->
+            <!--                    android:focusableInTouchMode="false"-->
+            <!--                    android:hint="@string/sort_by_phrase"-->
+            <!--                    android:longClickable="false" />-->
+
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,7 +108,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/default_padding_medium"
         android:layout_marginEnd="@dimen/default_padding_medium"
-        android:paddingBottom="40dp"
+        android:paddingBottom="@dimen/default_padding_extra_large"
         android:paddingTop="@dimen/default_padding_medium"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
@@ -59,13 +132,13 @@
         style="@style/Note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="@dimen/default_padding_medium"
+        android:layout_marginStart="@dimen/default_padding_extra_large"
+        android:layout_marginEnd="@dimen/default_padding_extra_large"
+        android:layout_marginTop="@dimen/default_padding_large"
         app:layout_constraintTop_toBottomOf="@id/github_IV"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textAlignment="center"
-        android:text="@string/intructions_phrase" />
+        android:text="@string/instructions_phrase" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/instructions_group"

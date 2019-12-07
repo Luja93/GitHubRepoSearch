@@ -11,5 +11,8 @@
     <dimen name="avatar_height_large">90dp</dimen>
     <dimen name="main_logo_width">120dp</dimen>
     <dimen name="main_logo_height">120dp</dimen>
+    <dimen name="default_padding_extra_large">40dp</dimen>
+    <dimen name="default_padding_large">24dp</dimen>
+    <dimen name="default_spinner_radius">10dp</dimen>
 
 </resources>

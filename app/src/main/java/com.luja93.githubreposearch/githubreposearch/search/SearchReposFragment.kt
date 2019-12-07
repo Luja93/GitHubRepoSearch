@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.kotlin.visibleIf
@@ -31,10 +33,10 @@ import java.util.concurrent.TimeUnit
 class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListener {
 
     companion object {
-        const val TAG = "SearchReposFragment"
-
         fun newInstance() = SearchReposFragment()
     }
+
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     private val viewModel: SearchReposViewModel by viewModels { viewModelFactory }
     private val reposAdapter: ReposAdapter = ReposAdapter()
@@ -70,8 +72,7 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
     }
 
     private fun setupUI() {
-        // TODO: Extract this string
-        appBarLayout.toolbar.title = "GitHub Repo Searcher"
+        appBarLayout.toolbar.title = getString(R.string.search_repos_title)
 
         repos_RV.layoutManager = LinearLayoutManager(repos_RV.context)
         repos_RV.isMotionEventSplittingEnabled = false
@@ -89,6 +90,10 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
                     viewModel.searchRepositories(charSequence.toString().trim())
                 }
             })
+
+        sort_btn.setOnClickListener {
+            showSortingMenu(it)
+        }
     }
 
     private fun bindUI() {
@@ -104,12 +109,28 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
         instructions_group.visibleIf(searchResults.items.isEmpty())
 
         instructions_TV.text = if (searchResults.totalCount == BLANK_SEARCH) {
-            getString(R.string.intructions_phrase)
+            getString(R.string.instructions_phrase)
         } else {
             getString(R.string.no_results_phrase)
         }
     }
 
+    private fun showSortingMenu(view: View) {
+        val menu = PopupMenu(context, view)
+
+        Repo.Sorting.values().forEachIndexed { index, sorting ->
+            menu.menu.add(1, index, index, sorting.name)
+        }
+
+        menu.setOnMenuItemClickListener {
+            viewModel.setSortingOption(it.itemId)
+            viewModel.searchRepositories(search_repos_ET.text.toString())
+            sort_btn.text = it.title
+            true
+        }
+
+        menu.show()
+    }
 
     // Adapter listeners
     override fun onRepoClicked(repo: Repo) {
