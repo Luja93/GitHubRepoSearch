@@ -4,6 +4,7 @@ import android.app.Application
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.luja93.githubreposearch.common.dagger.components.ApplicationComponent
 import com.luja93.githubreposearch.common.dagger.components.DaggerApplicationComponent
 import com.luja93.githubreposearch.common.dagger.modules.ContextModule
@@ -45,5 +46,7 @@ class App : Application(), HasAndroidInjector {
         Glide.with(this).setDefaultRequestOptions(RequestOptions().diskCacheStrategy(
             DiskCacheStrategy.AUTOMATIC)
         )
+
+        AndroidThreeTen.init(this)
     }
 }

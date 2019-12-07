@@ -7,4 +7,12 @@
     <string name="watchers_phrase">Watchers:</string>
     <string name="issues_phrase">Issues:</string>
     <string name="search_repos_phrase">Search repos..</string>
+    <string name="made_by_phrase">by %s</string>
+    <string name="language_phrase">Programming language:</string>
+    <string name="unknown_phrase">Unknown</string>
+    <string name="no_description_phrase">No description</string>
+    <string name="desc_phrase">Description:</string>
+    <string name="show_details_phrase">Show details</string>
+    <string name="created_at">Created at: %s</string>
+    <string name="updated_at">Updated at: %s</string>
 </resources>

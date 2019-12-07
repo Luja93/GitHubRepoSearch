@@ -37,4 +37,9 @@
         <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 
+    <style name="Divider">
+        <item name="android:background">@color/textColorSecondary</item>
+        <item name="android:alpha">0.3</item>
+    </style>
+
 </resources>

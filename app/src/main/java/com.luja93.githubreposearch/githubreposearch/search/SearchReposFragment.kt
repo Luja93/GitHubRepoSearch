@@ -1,5 +1,6 @@
 package com.luja93.githubreposearch.githubreposearch.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.luja93.githubreposearch.R
+import com.luja93.githubreposearch.common.kotlin.visibleIf
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
 import com.luja93.githubreposearch.common.mvvm.ResourceStateObserver
+import com.luja93.githubreposearch.githubreposearch.AppConstants.DEBOUNCE_TIME_MILLIS
+import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.search.adapters.ReposAdapter
 import com.luja93.githubreposearch.utils.view.VerticalOffsetDecoration
 import kotlinx.android.synthetic.main.fragment_search_repos.*
@@ -22,16 +26,17 @@ import java.util.concurrent.TimeUnit
  * Created by lleopoldovic on 06/12/2019.
  */
 
-class SearchReposFragment : BaseFragment() {
+class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListener {
 
     companion object {
+        const val TAG = "SearchReposFragment"
+
         fun newInstance() = SearchReposFragment()
     }
 
-    private val viewModel: SearchReposViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: SearchReposViewModel by viewModels { viewModelFactory }
     private val reposAdapter: ReposAdapter = ReposAdapter()
+    private var listener: OnSearchReposFragmentInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,17 +53,32 @@ class SearchReposFragment : BaseFragment() {
         bindUI()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnSearchReposFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnSearchReposFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
     private fun setupUI() {
+        // TODO: Extract this string
         appBarLayout.toolbar.title = "GitHub Repo Searcher"
 
         repos_RV.layoutManager = LinearLayoutManager(repos_RV.context)
         repos_RV.isMotionEventSplittingEnabled = false
         repos_RV.addItemDecoration(VerticalOffsetDecoration(repos_RV.context, 16f))
         repos_RV.adapter = reposAdapter
+        reposAdapter.listener = this
 
-        // TODO: Extract 400 to a global const
         RxTextView.textChanges(search_repos_ET)
-            .debounce(600, TimeUnit.MILLISECONDS)
+            .debounce(DEBOUNCE_TIME_MILLIS, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Subscriber<CharSequence>() {
                 override fun onCompleted() {}
@@ -74,6 +94,22 @@ class SearchReposFragment : BaseFragment() {
             it?.let {
                 reposAdapter.submitList(it)
             }
-        }))
+        }, onLoading = { appBarLayout.toolbarProgressCircle.visibleIf(it) }))
+    }
+
+
+    // Adapter listeners
+    override fun onRepoClicked(repo: Repo) {
+        listener?.onRepoClicked(repo)
+    }
+
+    override fun onUserClicked(username: String) {
+        listener?.onUserClicked(username)
+    }
+
+
+    interface OnSearchReposFragmentInteractionListener {
+        fun onRepoClicked(repo: Repo)
+        fun onUserClicked(username: String)
     }
 }

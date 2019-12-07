@@ -1,0 +1,148 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.luja93.githubreposearch.githubreposearch.repodetails.RepoDetailsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolbar_layout" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/avatar_IV"
+        android:layout_width="@dimen/avatar_width_large"
+        android:layout_height="@dimen/avatar_height_large"
+        android:layout_marginTop="@dimen/default_padding_medium"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        android:scaleType="centerCrop"
+        app:civ_border="true"
+        app:civ_border_color="@color/textColorSecondary"
+        app:civ_border_width="3dp"
+        app:civ_shadow="true"
+        app:civ_shadow_color="@color/colorPrimaryDark"
+        app:civ_shadow_radius="10"
+        app:civ_circle_color="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        android:foreground="?attr/selectableItemBackgroundBorderless" />
+
+    <TextView
+        android:id="@+id/username_TV"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        app:layout_constraintStart_toEndOf="@id/avatar_IV"
+        app:layout_constraintTop_toTopOf="@id/avatar_IV"
+        app:layout_constraintBottom_toTopOf="@id/created_at_TV"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:text="Username" />
+
+    <TextView
+        android:id="@+id/created_at_TV"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@id/username_TV"
+        app:layout_constraintTop_toBottomOf="@id/username_TV"
+        app:layout_constraintBottom_toTopOf="@id/updated_at_TV"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:text="Created at: 12/07/2012 at 21:42" />
+
+    <TextView
+        android:id="@+id/updated_at_TV"
+        style="@style/Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/username_TV"
+        app:layout_constraintTop_toBottomOf="@id/created_at_TV"
+        app:layout_constraintBottom_toBottomOf="@id/avatar_IV"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:text="Created at: 12/07/2012 at 21:42" />
+
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/default_padding_medium"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        android:layout_marginEnd="@dimen/default_padding_medium"
+        app:layout_constraintTop_toBottomOf="@id/avatar_IV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_padding_medium"
+        android:layout_marginStart="@dimen/default_padding_medium"
+        android:layout_marginEnd="@dimen/default_padding_medium"
+        android:backgroundTint="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/card_corner_radius_default"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/divider">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding_medium"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+            <com.luja93.githubreposearch.githubreposearch.customview.DetailsTextView
+                android:id="@+id/fork_details_DTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.luja93.githubreposearch.githubreposearch.customview.DetailsTextView
+                android:id="@+id/watchers_details_DTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding_small" />
+
+            <com.luja93.githubreposearch.githubreposearch.customview.DetailsTextView
+                android:id="@+id/issues_details_DTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding_small" />
+
+            <com.luja93.githubreposearch.githubreposearch.customview.DetailsTextView
+                android:id="@+id/language_details_DTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding_small" />
+
+            <com.luja93.githubreposearch.githubreposearch.customview.DetailsTextView
+                android:id="@+id/desc_details_DTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding_small" />
+
+            <TextView
+                android:id="@+id/show_more_TV"
+                style="@style/Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding_medium"
+                android:layout_gravity="end"
+                android:textColor="@color/hyperlinkBlue"
+                android:background="?attr/selectableItemBackground"
+                android:text="@string/show_details_phrase" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

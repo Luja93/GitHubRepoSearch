@@ -6,5 +6,8 @@
     <dimen name="avatar_height">60dp</dimen>
     <dimen name="default_padding_small">8dp</dimen>
     <dimen name="default_padding_medium">16dp</dimen>
+    <dimen name="card_corner_radius_default">10dp</dimen>
+    <dimen name="avatar_width_large">90dp</dimen>
+    <dimen name="avatar_height_large">90dp</dimen>
 
 </resources>

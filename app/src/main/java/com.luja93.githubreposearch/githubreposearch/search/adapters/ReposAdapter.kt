@@ -9,6 +9,7 @@ import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.kotlin.inflate
 import com.luja93.githubreposearch.common.kotlin.loadUrl
 import com.luja93.githubreposearch.githubreposearch.model.Repo
+import com.luja93.githubreposearch.utils.TextViewUtils
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 /**
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.item_repo.view.*
  */
 
 class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtilCallbackImpl()) {
+
+    var listener: OnRepoInteractionListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder =
         RepoViewHolder(parent.inflate(R.layout.item_repo))
@@ -25,16 +28,23 @@ class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtil
         holder.bind(getItem(position))
     }
 
-    class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(repo: Repo) {
             with(itemView) {
                 repo_name_TV.text = repo.name
-                username_TV.text = repo.owner.username
                 avatar_IV.loadUrl(repo.owner.avatarUrl, false)
-
+                username_TV.text = TextViewUtils.setForegroundSpan(
+                    itemView.context,
+                    itemView.context.getString(R.string.made_by_phrase, repo.owner.username),
+                    R.color.colorAccent, 2
+                )
                 forks_count_TV.text = repo.forksCount.toString()
                 watchers_count_TV.text = repo.forksCount.toString()
                 issues_count_TV.text = repo.openIssuesCount.toString()
+
+                repo_CV.setOnClickListener { listener?.onRepoClicked(repo) }
+                avatar_IV.setOnClickListener { listener?.onUserClicked(repo.owner.username) }
+                username_TV.setOnClickListener { listener?.onUserClicked(repo.owner.username) }
             }
         }
     }
@@ -47,5 +57,10 @@ class ReposAdapter : ListAdapter<Repo, ReposAdapter.RepoViewHolder>(RepoDiffUtil
         override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
             return oldItem == newItem
         }
+    }
+
+    interface OnRepoInteractionListener {
+        fun onRepoClicked(repo: Repo)
+        fun onUserClicked(username: String)
     }
 }

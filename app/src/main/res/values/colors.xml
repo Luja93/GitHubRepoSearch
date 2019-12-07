@@ -7,4 +7,5 @@
     <color name="textColorPrimary">#FFFDFF</color>
     <color name="textColorSecondary">#737075</color>
 
+    <color name="hyperlinkBlue">#1aa3ff</color>
 </resources>

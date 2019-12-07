@@ -2,18 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repo_CV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    app:cardCornerRadius="10dp">
-
-    <!--TODO: Extract dimension resources! Including margins/paddings in activity/fragment-->
-    <!--TODO: Extract text styles!-->
+    android:backgroundTint="@color/colorPrimary"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="@dimen/card_corner_radius_default">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding_small"
+        android:paddingTop="@dimen/default_padding_small"
+        android:paddingStart="@dimen/default_padding_small"
+        android:paddingEnd="@dimen/default_padding_small"
+        android:paddingBottom="@dimen/default_padding_medium"
         android:background="@color/colorPrimary">
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -29,15 +31,14 @@
             app:civ_shadow_radius="10"
             app:civ_circle_color="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
         <TextView
             android:id="@+id/repo_name_TV"
+            style="@style/Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginStart="@dimen/default_padding_small"
             android:layout_marginEnd="@dimen/default_padding_medium"
             app:layout_constraintStart_toEndOf="@id/avatar_IV"
@@ -48,19 +49,19 @@
 
         <TextView
             android:id="@+id/username_TV"
+            style="@style/Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorSecondary"
             app:layout_constraintStart_toStartOf="@id/repo_name_TV"
             app:layout_constraintEnd_toEndOf="@id/repo_name_TV"
             app:layout_constraintTop_toBottomOf="@id/repo_name_TV"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             tools:text="Username" />
 
         <View
+            style="@style/Divider"
             android:layout_width="0dp"
             android:layout_height="0.5dp"
-            android:alpha="0.3"
-            android:background="@color/textColorSecondary"
             app:layout_constraintStart_toStartOf="@id/forks_TV"
             app:layout_constraintEnd_toEndOf="@id/issues_TV"
             app:layout_constraintTop_toBottomOf="@id/username_TV"
@@ -68,23 +69,23 @@
 
         <TextView
             android:id="@+id/forks_TV"
-            android:layout_width="0dp"
+            style="@style/Body"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_padding_medium"
-            android:textColor="@color/textColorSecondary"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="@id/repo_name_TV"
             app:layout_constraintTop_toBottomOf="@id/username_TV"
             app:layout_constraintEnd_toStartOf="@id/watchers_TV"
-            app:layout_constraintWidth_default="wrap"
+            app:layout_constrainedWidth="true"
             app:layout_constraintHorizontal_chainStyle="spread"
             android:text="@string/forks_phrase" />
 
         <TextView
             android:id="@+id/watchers_TV"
+            style="@style/Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorSecondary"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/forks_TV"
             app:layout_constraintEnd_toStartOf="@id/issues_TV"
@@ -93,35 +94,34 @@
 
         <TextView
             android:id="@+id/issues_TV"
-            android:layout_width="0dp"
+            style="@style/Body"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorSecondary"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@id/watchers_TV"
             app:layout_constraintEnd_toEndOf="@id/repo_name_TV"
             app:layout_constraintTop_toTopOf="@id/forks_TV"
-            app:layout_constraintWidth_default="wrap"
+            app:layout_constrainedWidth="true"
             android:text="@string/issues_phrase" />
 
 
         <TextView
             android:id="@+id/forks_count_TV"
-            android:layout_width="0dp"
+            style="@style/Body"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_padding_small"
-            android:textColor="@color/textColorSecondary"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="@id/forks_TV"
             app:layout_constraintTop_toBottomOf="@id/forks_TV"
             app:layout_constraintEnd_toEndOf="@id/forks_TV"
-            app:layout_constraintWidth_default="wrap"
+            app:layout_constrainedWidth="true"
             tools:text="4424" />
 
         <TextView
             android:id="@+id/watchers_count_TV"
+            style="@style/Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorSecondary"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="@id/watchers_TV"
             app:layout_constraintEnd_toEndOf="@id/watchers_TV"
@@ -130,15 +130,19 @@
 
         <TextView
             android:id="@+id/issues_count_TV"
+            style="@style/Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorSecondary"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="@id/issues_TV"
             app:layout_constraintEnd_toEndOf="@id/issues_TV"
             app:layout_constraintTop_toTopOf="@id/forks_count_TV"
             tools:text="13" />
 
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:constraint_referenced_ids="avatar_IV,username_TV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
