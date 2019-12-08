@@ -27,6 +27,8 @@ class SearchReposViewModel @Inject constructor(
     private var sorting: Repo.Sorting = Repo.Sorting.Default
 
     fun searchRepositories(query: String, searchIfSameQuery: Boolean = false) {
+        // If user entered a repo/user details screen and then returned to repo listing,
+        // don't refresh the list
         if (this.query == query && !searchIfSameQuery) return else this.query = query
 
         if (query.trim().isNullOrBlank()) {

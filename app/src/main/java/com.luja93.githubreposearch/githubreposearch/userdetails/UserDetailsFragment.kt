@@ -100,7 +100,7 @@ class UserDetailsFragment : BaseFragment() {
         )
         location_details_DTV.setDetails(
             getString(R.string.location_phrase),
-            user.email ?: getString(R.string.unavailable_phrase)
+            user.location ?: getString(R.string.unavailable_phrase)
         )
         public_repos_details_DTV.setDetails(
             getString(R.string.public_repos_phrase),
@@ -113,10 +113,6 @@ class UserDetailsFragment : BaseFragment() {
         followers_details_DTV.setDetails(
             getString(R.string.followers_phrase),
             user.followersCount.toString()
-        )
-        following_details_DTV.setDetails(
-            getString(R.string.following_phrase),
-            user.followingCount.toString()
         )
         following_details_DTV.setDetails(
             getString(R.string.following_phrase),
