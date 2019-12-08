@@ -14,7 +14,7 @@ import io.reactivex.Observable
 @Dao
 interface RepoDao : RepoData {
 
-    @Query("select * from Repo where name like :query")
+    @Query("select * from Repo where name like :query limit 30")
     override fun getRepositories(query: String): Observable<List<Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
