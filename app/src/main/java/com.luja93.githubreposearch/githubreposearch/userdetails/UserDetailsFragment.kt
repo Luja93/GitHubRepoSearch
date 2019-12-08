@@ -83,7 +83,7 @@ class UserDetailsFragment : BaseFragment() {
 
         val title = TextViewUtils.setForegroundSpan(
             details_header_view.context,
-            user.name,
+            user.name ?: getString(R.string.not_defined_phrase),
             R.color.colorAccent, 0
         )
         details_header_view.setHeaderDetails(

@@ -23,7 +23,7 @@ data class User(
     @SerializedName("type")
     val type: String,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("bio")
     val bio: String?,
     @SerializedName("public_repos")
