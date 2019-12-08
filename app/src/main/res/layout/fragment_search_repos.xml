@@ -56,6 +56,8 @@
                 android:textAppearance="@style/Input"
                 android:paddingStart="@dimen/default_padding_medium"
                 android:paddingEnd="@dimen/default_padding_medium"
+                android:paddingTop="@dimen/default_padding_small"
+                android:paddingBottom="@dimen/default_padding_small"
                 android:textAlignment="center"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"

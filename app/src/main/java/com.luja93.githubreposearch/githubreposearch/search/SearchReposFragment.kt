@@ -88,7 +88,6 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
                 }
             })
 
-        sort_btn.text = Repo.Sorting.Default.name
         sort_btn.setOnClickListener {
             showSortingMenu(it)
         }
@@ -97,8 +96,22 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
     private fun bindUI() {
         viewModel.repositories.observe(
             viewLifecycleOwner, ResourceStateObserver(this,
-                onSuccess = { it?.let { setResults(it) } },
+                onSuccess = { repos -> repos?.let { setResults(repos) } },
                 onLoading = { appBarLayout.toolbarProgressCircle.visibleIf(it) })
+        )
+        viewModel.query.observe(
+            viewLifecycleOwner, ResourceStateObserver(this,
+                onSuccess = { query ->
+                    query?.let {
+                        if (search_repos_ET.text.toString() != it) {
+                            search_repos_ET.setText(it)
+                        }
+                    }
+                })
+        )
+        viewModel.sorting.observe(
+            viewLifecycleOwner, ResourceStateObserver(this,
+                onSuccess = { sorting -> sorting?.let { sort_btn.text = it.name } })
         )
     }
 
@@ -125,7 +138,6 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
         menu.setOnMenuItemClickListener {
             viewModel.setSortingOption(it.itemId)
             viewModel.searchRepositories(search_repos_ET.text.toString(), true)
-            sort_btn.text = it.title
             true
         }
 

@@ -22,26 +22,36 @@ class SearchReposViewModel @Inject constructor(
 
     private val _repositories = MutableLiveData<ResourceState<SearchReposResponse>>()
     val repositories: LiveData<ResourceState<SearchReposResponse>> = _repositories
+    private val _query = MutableLiveData<ResourceState<String>>()
+    val query: LiveData<ResourceState<String>> = _query
+    private val _sorting = MutableLiveData<ResourceState<Repo.Sorting>>()
+    val sorting: LiveData<ResourceState<Repo.Sorting>> = _sorting
 
-    private var query: String = ""
-    private var sorting: Repo.Sorting = Repo.Sorting.Default
+    init {
+        _query.value = ResourceState.success("")
+        _sorting.value = ResourceState.success(Repo.Sorting.Default)
+    }
 
     fun searchRepositories(query: String, searchIfSameQuery: Boolean = false) {
         // If user entered a repo/user details screen and then returned to repo listing,
         // don't refresh the list
-        if (this.query == query && !searchIfSameQuery) return else this.query = query
+        if (_query.value?.data == query && !searchIfSameQuery) {
+            return
+        } else {
+            _query.value = ResourceState.success(query)
+        }
 
-        if (query.trim().isNullOrBlank()) {
+        if (query.trim().isBlank()) {
             _repositories.value =
                 ResourceState.success(SearchReposResponse(BLANK_SEARCH, emptyList()))
         } else {
             observableCall(_repositories, {
-                repoRepo.getRepositories(query, sorting)
+                repoRepo.getRepositories(query, _sorting.value?.data ?: Repo.Sorting.Default)
             })
         }
     }
 
     fun setSortingOption(position: Int) {
-        sorting = Repo.Sorting.values()[position]
+        _sorting.value = ResourceState.success(Repo.Sorting.values()[position])
     }
 }
