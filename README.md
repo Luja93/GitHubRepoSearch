@@ -6,4 +6,4 @@ Architecture: MVVM <br/>
 Networking: Retrofit/OkHttp <br/>
 Local caching: Room <br/>
 Dependency injection: Dagger2 <br/>
-Other libraries/frameworks/tools: RxJava2, LiveData, ViewModel, Room
+Other libraries/frameworks/tools: RxJava2, LiveData, ViewModel
