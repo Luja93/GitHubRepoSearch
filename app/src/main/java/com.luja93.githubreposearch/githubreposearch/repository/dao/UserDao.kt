@@ -1,4 +1,4 @@
-package com.luja93.githubreposearch.githubreposearch.repository.user
+package com.luja93.githubreposearch.githubreposearch.repository.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,12 +12,12 @@ import io.reactivex.Observable
  */
 
 @Dao
-interface UserDao : UserData {
+interface UserDao {
 
     @Query("select * from User where id = :id")
-    override fun getUser(id: Long): Observable<User>
+    fun getUser(id: Long): Observable<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun saveUser(user: User)
+    fun saveUser(user: User)
 
 }

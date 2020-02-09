@@ -23,31 +23,11 @@ import kotlinx.android.synthetic.main.toolbar_layout.view.*
 class UserDetailsFragment : BaseFragment() {
 
     companion object {
-        private const val ARG_USER_ID_KEY = "argUserIdKey"
-        private const val ARG_USERNAME_KEY = "argUsernameKey"
-
-        @JvmStatic
-        fun newInstance(id: Long, username: String) =
-            UserDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(ARG_USER_ID_KEY, id)
-                    putString(ARG_USERNAME_KEY, username)
-                }
-            }
+        private const val ARG_USER_ID_KEY = "id"
+        private const val ARG_USERNAME_KEY = "username"
     }
 
     private val viewModel: UserDetailsViewModel by viewModels { viewModelFactory }
-    private var id: Long = 0
-    private lateinit var username: String
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            id = it.getLong(ARG_USER_ID_KEY)
-            username = it.getString(ARG_USERNAME_KEY) ?: ""
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,11 +43,15 @@ class UserDetailsFragment : BaseFragment() {
         setupUI()
         bindUI()
 
-        viewModel.fetchUser(id, username)
+        arguments?.let { bundle ->
+            viewModel.fetchUser(
+                bundle.getLong(ARG_USER_ID_KEY),
+                bundle.getString(ARG_USERNAME_KEY) ?: ""
+            )
+        }
     }
 
     private fun setupUI() {
-        appBarLayout.toolbar.title = username
         details_group.gone()
     }
 
@@ -78,6 +62,8 @@ class UserDetailsFragment : BaseFragment() {
     }
 
     private fun setUserDetails(user: User) {
+        appBarLayout.toolbar.title = user.name
+
         details_group.visible()
         warning_group.gone()
 

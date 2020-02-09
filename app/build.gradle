@@ -112,6 +112,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 
+    // Pagination
+    implementation "androidx.paging:paging-runtime:$versions.pagination"
+
     // Architecture components
     // RxJava support for Room
     implementation "android.arch.lifecycle:reactivestreams:$versions.rxRoom"
@@ -152,7 +155,7 @@ dependencies {
     implementation "com.greysonparrelli.permiso:permiso:$versions.premiso"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     implementation "com.jakewharton.threetenabp:threetenabp:$versions.threetenabp"
-    implementation "com.jakewharton.rxbinding:rxbinding:$versions.rxbinding"
+    implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:$versions.rxbinding"
     implementation "com.mikhaellopez:circularimageview:$versions.circularimageview"
 
 }

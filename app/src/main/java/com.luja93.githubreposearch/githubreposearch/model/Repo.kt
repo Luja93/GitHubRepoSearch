@@ -30,10 +30,6 @@ data class Repo(
     val url: String = "",
     @SerializedName("description")
     val description: String? = null,
-    @SerializedName("created_at")
-    val _createdAtTimeStamp: String = "",
-    @SerializedName("updated_at")
-    val _updatedAtTimeStamp: String = "",
     @SerializedName("watchers_count")
     val watcherCount: Long = 0,
     @SerializedName("forks_count")
@@ -41,9 +37,12 @@ data class Repo(
     @SerializedName("open_issues_count")
     val openIssuesCount: Long = 0,
     @SerializedName("language")
-    val language: String? = null
+    val language: String? = null,
+    @SerializedName("created_at")
+    val _createdAtTimeStamp: String = "",
+    @SerializedName("updated_at")
+    val _updatedAtTimeStamp: String = ""
 ) {
-
     enum class Sorting(val value: String) {
         Default(""),
         Forks("forks"),

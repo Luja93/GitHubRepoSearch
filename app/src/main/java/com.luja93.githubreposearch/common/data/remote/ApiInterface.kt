@@ -2,7 +2,6 @@ package com.luja93.githubreposearch.common.data.remote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.model.User
 import com.luja93.githubreposearch.githubreposearch.model.api.SearchReposResponse
 import io.reactivex.Observable
@@ -18,6 +17,8 @@ interface ApiInterface {
 
     @GET("search/repositories")
     fun searchRepositories(
+        @Query("page") pageNumber: Int,
+        @Query("per_page") pageSize: Int,
         @Query("q") query: String,
         @Query("sort") sort: String): Observable<SearchReposResponse>
 

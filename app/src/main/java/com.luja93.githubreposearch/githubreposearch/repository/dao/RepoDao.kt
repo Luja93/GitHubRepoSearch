@@ -1,4 +1,4 @@
-package com.luja93.githubreposearch.githubreposearch.repository.repo
+package com.luja93.githubreposearch.githubreposearch.repository.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,12 +12,12 @@ import io.reactivex.Observable
  */
 
 @Dao
-interface RepoDao : RepoData {
+interface RepoDao {
 
     @Query("select * from Repo where name like :query limit 30")
-    override fun getRepositories(query: String): Observable<List<Repo>>
+    fun getRepositories(query: String): Observable<List<Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun saveRepository(repo: Repo)
+    fun saveRepository(repo: Repo)
 
 }

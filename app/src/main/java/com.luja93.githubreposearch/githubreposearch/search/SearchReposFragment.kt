@@ -1,14 +1,16 @@
 package com.luja93.githubreposearch.githubreposearch.search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jakewharton.rxbinding.widget.RxTextView
+import com.jakewharton.rxbinding3.appcompat.queryTextChanges
 import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.kotlin.visibleIf
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
@@ -16,28 +18,22 @@ import com.luja93.githubreposearch.common.mvvm.ResourceStateObserver
 import com.luja93.githubreposearch.githubreposearch.AppConstants.BLANK_SEARCH
 import com.luja93.githubreposearch.githubreposearch.AppConstants.DEBOUNCE_TIME_MILLIS
 import com.luja93.githubreposearch.githubreposearch.model.Repo
-import com.luja93.githubreposearch.githubreposearch.model.api.SearchReposResponse
-import com.luja93.githubreposearch.githubreposearch.search.adapters.ReposAdapter
+import com.luja93.githubreposearch.githubreposearch.repodetails.RepoDetailsFragment
+import com.luja93.githubreposearch.githubreposearch.search.adapters.ReposPaginationAdapter
 import com.luja93.githubreposearch.utils.view.VerticalOffsetDecoration
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_search_repos.*
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_search_repos.view.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by lleopoldovic on 06/12/2019.
  */
 
-class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListener {
-
-    companion object {
-        fun newInstance() = SearchReposFragment()
-    }
+class SearchReposFragment : BaseFragment(), ReposPaginationAdapter.OnRepoInteractionListener {
 
     private val viewModel: SearchReposViewModel by viewModels { viewModelFactory }
-    private val reposAdapter: ReposAdapter = ReposAdapter()
-    private var listener: OnSearchReposFragmentInteractionListener? = null
+    private val reposAdapter: ReposPaginationAdapter = ReposPaginationAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,78 +50,69 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
         bindUI()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnSearchReposFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement OnSearchReposFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
     private fun setupUI() {
-        appBarLayout.toolbar.title = getString(R.string.search_repos_title)
-
         repos_RV.layoutManager = LinearLayoutManager(repos_RV.context)
         repos_RV.isMotionEventSplittingEnabled = false
         repos_RV.addItemDecoration(VerticalOffsetDecoration(repos_RV.context, 16f))
         repos_RV.adapter = reposAdapter
         reposAdapter.listener = this
 
-        RxTextView.textChanges(search_repos_ET)
+        @Suppress("unused")
+        search_view.queryTextChanges()
             .debounce(DEBOUNCE_TIME_MILLIS, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Subscriber<CharSequence>() {
-                override fun onCompleted() {}
-                override fun onError(e: Throwable) {}
-                override fun onNext(charSequence: CharSequence) {
-                    viewModel.searchRepositories(charSequence.toString().trim())
-                }
-            })
+            .subscribe {
+                viewModel.searchRepositories(it.toString())
+            }
 
-        sort_btn.setOnClickListener {
-            showSortingMenu(it)
-        }
+        // TODO
+//        sort_btn.setOnClickListener {
+//            showSortingMenu(it)
+//        }
     }
 
     private fun bindUI() {
-        viewModel.repositories.observe(
+        viewModel.totalCount.observe(viewLifecycleOwner, Observer {
+            setPlaceholder(it)
+            setContentVisibility(it)
+        })
+        viewModel.query.observe(viewLifecycleOwner, Observer {
+            if (search_view.query.toString() != it)
+                search_view.setQuery(it, false)
+        })
+        viewModel.sorting.observe(viewLifecycleOwner, Observer {
+            // TODO: Set sorting button in the proper way
+            // sort_btn.text = it.name
+        })
+        viewModel.repos.observe(
             viewLifecycleOwner, ResourceStateObserver(this,
                 onSuccess = { repos -> repos?.let { setResults(repos) } },
-                onLoading = { appBarLayout.toolbarProgressCircle.visibleIf(it) })
-        )
-        viewModel.query.observe(
-            viewLifecycleOwner, ResourceStateObserver(this,
-                onSuccess = { query ->
-                    query?.let {
-                        if (search_repos_ET.text.toString() != it) {
-                            search_repos_ET.setText(it)
-                        }
-                    }
-                })
-        )
-        viewModel.sorting.observe(
-            viewLifecycleOwner, ResourceStateObserver(this,
-                onSuccess = { sorting -> sorting?.let { sort_btn.text = it.name } })
+                onLoading = { app_bar_layout.toolbar_progress_circle.visibleIf(it) }
+            )
         )
     }
 
-    private fun setResults(searchResults: SearchReposResponse) {
-        reposAdapter.submitList(searchResults.items)
+    private fun setResults(repos: PagedList<Repo>) {
+        reposAdapter.submitList(repos)
+    }
 
-        repos_RV.visibleIf(searchResults.items.isNotEmpty())
-        instructions_group.visibleIf(searchResults.items.isEmpty())
-
-        instructions_TV.text = if (searchResults.totalCount == BLANK_SEARCH) {
-            getString(R.string.instructions_phrase)
-        } else {
-            getString(R.string.no_results_phrase)
+    private fun setPlaceholder(totalCount: Long) {
+        when (totalCount) {
+            BLANK_SEARCH -> instructions_TV.text = getString(R.string.instructions_phrase)
+            0L -> instructions_TV.text = getString(R.string.no_results_phrase)
         }
+    }
+
+    private fun setContentVisibility(totalCount: Long) {
+        if (totalCount <= 0) {
+            expandToolbar()
+        }
+        repos_RV.visibleIf(totalCount > 0)
+        instructions_group.visibleIf(totalCount <= 0)
+    }
+
+    private fun expandToolbar() {
+        app_bar_layout.setExpanded(true, true)
     }
 
     private fun showSortingMenu(view: View) {
@@ -137,7 +124,7 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
 
         menu.setOnMenuItemClickListener {
             viewModel.setSortingOption(it.itemId)
-            viewModel.searchRepositories(search_repos_ET.text.toString(), true)
+            viewModel.searchRepositories(search_view.query.toString(), true)
             true
         }
 
@@ -146,16 +133,17 @@ class SearchReposFragment : BaseFragment(), ReposAdapter.OnRepoInteractionListen
 
     // Adapter listeners
     override fun onRepoClicked(repo: Repo) {
-        listener?.onRepoClicked(repo)
+        findNavController().navigate(
+            R.id.action_search_repos_to_repo_details,
+            RepoDetailsFragment.newBundle(repo)
+        )
     }
 
     override fun onUserClicked(id: Long, username: String) {
-        listener?.onUserClicked(id, username)
-    }
-
-
-    interface OnSearchReposFragmentInteractionListener {
-        fun onRepoClicked(repo: Repo)
-        fun onUserClicked(id: Long, username: String)
+        findNavController().navigate(
+            SearchReposFragmentDirections.actionSearchReposToUserDetails(
+                id, username
+            )
+        )
     }
 }
