@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notifications_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="16dp"
+    android:paddingTop="0dp"
+    android:clipToPadding="false"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="@dimen/default_padding_medium"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Title.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/sorting_bottom_sheet_title" />
+
+        <LinearLayout
+            android:id="@+id/sorting_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginTop="@dimen/default_padding_medium"
+            android:paddingStart="@dimen/default_padding_extra_large"
+            android:paddingTop="@dimen/default_padding_small"
+            android:paddingBottom="@dimen/default_padding_small"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/sorting_default_iv"
+                android:layout_width="@dimen/sorting_icon_bottom_sheet_image_width"
+                android:layout_height="@dimen/sorting_icon_bottom_sheet_image_height"
+                app:srcCompat="@drawable/ic_sort_default_24px" />
+
+            <TextView
+                android:id="@+id/sorting_default_tv"
+                style="@style/Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding_medium"
+                android:textColor="@color/textColorPrimary"
+                tools:text="Default sorting" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sorting_watchers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:paddingTop="@dimen/default_padding_small"
+            android:paddingBottom="@dimen/default_padding_small"
+            android:paddingStart="@dimen/default_padding_extra_large"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/sorting_watchers_iv"
+                android:layout_width="@dimen/sorting_icon_bottom_sheet_image_width"
+                android:layout_height="@dimen/sorting_icon_bottom_sheet_image_height"
+                app:srcCompat="@drawable/ic_sunglasses_24px" />
+
+            <TextView
+                android:id="@+id/sorting_watchers_tv"
+                style="@style/Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding_medium"
+                android:textColor="@color/textColorPrimary"
+                tools:text="Watchers sorting" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sorting_forks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:paddingTop="@dimen/default_padding_small"
+            android:paddingBottom="@dimen/default_padding_small"
+            android:paddingStart="@dimen/default_padding_extra_large"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/sorting_forks_iv"
+                android:layout_width="@dimen/sorting_icon_bottom_sheet_image_width"
+                android:layout_height="@dimen/sorting_icon_bottom_sheet_image_height"
+                app:srcCompat="@drawable/ic_fork_24px" />
+
+            <TextView
+                android:id="@+id/sorting_forks_tv"
+                style="@style/Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding_medium"
+                android:textColor="@color/textColorPrimary"
+                tools:text="Forks sorting" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sorting_issues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:paddingTop="@dimen/default_padding_small"
+            android:paddingBottom="@dimen/default_padding_small"
+            android:paddingStart="@dimen/default_padding_extra_large"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/sorting_issues_iv"
+                android:layout_width="@dimen/sorting_icon_bottom_sheet_image_width"
+                android:layout_height="@dimen/sorting_icon_bottom_sheet_image_height"
+                app:srcCompat="@drawable/ic_error_outline_24px" />
+
+            <TextView
+                android:id="@+id/sorting_issues_tv"
+                style="@style/Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_padding_medium"
+                android:textColor="@color/textColorPrimary"
+                tools:text="Issues sorting" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

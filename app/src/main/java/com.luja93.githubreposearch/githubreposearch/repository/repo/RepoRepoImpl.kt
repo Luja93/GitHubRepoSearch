@@ -49,7 +49,7 @@ class RepoRepoImpl @Inject constructor(
                         val repos = when (params.sort) {
                             Repo.Sorting.Default -> it
                             Repo.Sorting.Forks -> it.sortedByDescending { repo -> repo.forksCount }
-                            Repo.Sorting.Stars -> it.sortedByDescending { repo -> repo.watcherCount }
+                            Repo.Sorting.Watchers -> it.sortedByDescending { repo -> repo.watcherCount }
                             Repo.Sorting.Issues -> it.sortedByDescending { repo -> repo.openIssuesCount }
                         }
                         Observable.just(SearchReposResponse(it.count().toLong(), repos))

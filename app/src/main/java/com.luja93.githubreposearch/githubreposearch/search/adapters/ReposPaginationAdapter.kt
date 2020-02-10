@@ -18,11 +18,13 @@ class ReposPaginationAdapter : GenericPagedListAdapter<Repo>(RepoDiffUtilCallbac
 
     companion object RepoDiffUtilCallback : DiffUtil.ItemCallback<Repo>() {
         override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean {
-            return oldItem == newItem
+            return (oldItem.forksCount == newItem.forksCount &&
+                    oldItem.watcherCount == newItem.watcherCount &&
+                    oldItem.openIssuesCount == newItem.openIssuesCount)
         }
     }
 

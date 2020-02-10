@@ -83,14 +83,16 @@ class SearchReposViewModel @Inject constructor(
         }
     }
 
-    fun setSortingOption(position: Int) {
-        _sorting.value = Repo.Sorting.values()[position]
+    fun setSorting(sorting: Repo.Sorting) {
+        _sorting.value = sorting
+        searchRepositories(_query.value ?: "", true)
     }
 
     private fun performSearch(query: String) {
         reposPaginationParams.apply {
             this.query = query
             this.pageNumber = this.apiFirstPageNumber
+            this.sort = _sorting.value ?: Repo.Sorting.Default
         }
 
         reposDataSourceFactory.reInit(

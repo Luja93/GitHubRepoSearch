@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jakewharton.rxbinding3.appcompat.queryTextChanges
 import com.luja93.githubreposearch.R
+import com.luja93.githubreposearch.common.kotlin.invisible
+import com.luja93.githubreposearch.common.kotlin.visible
 import com.luja93.githubreposearch.common.kotlin.visibleIf
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
 import com.luja93.githubreposearch.common.mvvm.ResourceStateObserver
@@ -20,6 +22,7 @@ import com.luja93.githubreposearch.githubreposearch.AppConstants.DEBOUNCE_TIME_M
 import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.repodetails.RepoDetailsFragment
 import com.luja93.githubreposearch.githubreposearch.search.adapters.ReposPaginationAdapter
+import com.luja93.githubreposearch.utils.DialogUtil
 import com.luja93.githubreposearch.utils.view.VerticalOffsetDecoration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_search_repos.*
@@ -31,6 +34,8 @@ import java.util.concurrent.TimeUnit
  */
 
 class SearchReposFragment : BaseFragment(), ReposPaginationAdapter.OnRepoInteractionListener {
+
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     private val viewModel: SearchReposViewModel by viewModels { viewModelFactory }
     private val reposAdapter: ReposPaginationAdapter = ReposPaginationAdapter()
@@ -65,10 +70,9 @@ class SearchReposFragment : BaseFragment(), ReposPaginationAdapter.OnRepoInterac
                 viewModel.searchRepositories(it.toString())
             }
 
-        // TODO
-//        sort_btn.setOnClickListener {
-//            showSortingMenu(it)
-//        }
+        sorting_btn.setOnClickListener {
+            bottomSheetDialog.show()
+        }
     }
 
     private fun bindUI() {
@@ -81,15 +85,32 @@ class SearchReposFragment : BaseFragment(), ReposPaginationAdapter.OnRepoInterac
                 search_view.setQuery(it, false)
         })
         viewModel.sorting.observe(viewLifecycleOwner, Observer {
-            // TODO: Set sorting button in the proper way
-            // sort_btn.text = it.name
+            setupSortingUI(it)
         })
         viewModel.repos.observe(
             viewLifecycleOwner, ResourceStateObserver(this,
                 onSuccess = { repos -> repos?.let { setResults(repos) } },
-                onLoading = { app_bar_layout.toolbar_progress_circle.visibleIf(it) }
+                onLoading = { isLoading -> activateProgressBar(isLoading) }
             )
         )
+    }
+
+    private fun setupSortingUI(sorting: Repo.Sorting) {
+        activity?.let {
+            bottomSheetDialog = DialogUtil.buildSortingBottomSheetDialog(it, sorting) { sorting ->
+                viewModel.setSorting(sorting)
+            }
+        }
+    }
+
+    private fun activateProgressBar(isLoading: Boolean) {
+        if (isLoading) {
+            app_bar_layout.progress_bar.visible()
+            app_bar_layout.progress_bar_placeholder.invisible()
+        } else {
+            app_bar_layout.progress_bar.invisible()
+            app_bar_layout.progress_bar_placeholder.visible()
+        }
     }
 
     private fun setResults(repos: PagedList<Repo>) {
@@ -113,22 +134,6 @@ class SearchReposFragment : BaseFragment(), ReposPaginationAdapter.OnRepoInterac
 
     private fun expandToolbar() {
         app_bar_layout.setExpanded(true, true)
-    }
-
-    private fun showSortingMenu(view: View) {
-        val menu = PopupMenu(context, view)
-
-        Repo.Sorting.values().forEachIndexed { index, sorting ->
-            menu.menu.add(1, index, index, sorting.name)
-        }
-
-        menu.setOnMenuItemClickListener {
-            viewModel.setSortingOption(it.itemId)
-            viewModel.searchRepositories(search_view.query.toString(), true)
-            true
-        }
-
-        menu.show()
     }
 
     // Adapter listeners

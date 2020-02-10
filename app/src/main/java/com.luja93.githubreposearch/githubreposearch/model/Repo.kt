@@ -46,7 +46,7 @@ data class Repo(
     enum class Sorting(val value: String) {
         Default(""),
         Forks("forks"),
-        Stars("stars"),
+        Watchers("stars"),
         Issues("help-wanted-issues")
     }
 
