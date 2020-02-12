@@ -9,6 +9,7 @@
     <dimen name="card_corner_radius_default">10dp</dimen>
     <dimen name="default_spinner_radius">10dp</dimen>
     <dimen name="default_stroke_width">1dp</dimen>
+    <dimen name="bottom_sheet_default_radius">20dp</dimen>
 
     <!--    Specific values-->
     <dimen name="toolbar_progress_circle_width">16dp</dimen>

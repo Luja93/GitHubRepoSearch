@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_padding_medium"
                 android:layout_marginEnd="@dimen/default_padding_medium"
-                android:background="@drawable/background_rounded_corners"
+                android:background="@drawable/bg_rounded_corners"
                 app:iconifiedByDefault="false"
                 app:queryHint="@string/search_repos_phrase"
                 app:layout_constraintTop_toTopOf="parent"

@@ -54,7 +54,7 @@ object DialogUtil {
         onSortingSelectedCallback: (sorting: Repo.Sorting) -> Unit
     ): BottomSheetDialog {
         with(activity) {
-            val sheetView = layoutInflater.inflate(R.layout.sorting_bottom_sheet, null)
+            val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_sorting, null)
 
             val bottomSheetDialog = BottomSheetDialog(activity, R.style.BottomSheetDialogTheme)
             bottomSheetDialog.setContentView(sheetView)
