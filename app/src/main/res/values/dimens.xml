@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="toolbar_title_text_size">20sp</dimen>
-    <dimen name="avatar_width">60dp</dimen>
-    <dimen name="avatar_height">60dp</dimen>
+    <!--    General default values-->
     <dimen name="default_padding_small">8dp</dimen>
     <dimen name="default_padding_medium">16dp</dimen>
+    <dimen name="default_padding_large">24dp</dimen>
+    <dimen name="default_padding_extra_large">40dp</dimen>
     <dimen name="card_corner_radius_default">10dp</dimen>
+    <dimen name="default_spinner_radius">10dp</dimen>
+    <dimen name="default_stroke_width">1dp</dimen>
+    <dimen name="bottom_sheet_default_radius">20dp</dimen>
+
+    <!--    Specific values-->
+    <dimen name="toolbar_progress_circle_width">16dp</dimen>
+    <dimen name="toolbar_progress_circle_height">16dp</dimen>
+
+    <dimen name="avatar_width">60dp</dimen>
+    <dimen name="avatar_height">60dp</dimen>
+
     <dimen name="avatar_width_large">90dp</dimen>
     <dimen name="avatar_height_large">90dp</dimen>
+
     <dimen name="main_logo_width">120dp</dimen>
     <dimen name="main_logo_height">120dp</dimen>
-    <dimen name="default_padding_extra_large">40dp</dimen>
-    <dimen name="default_padding_large">24dp</dimen>
-    <dimen name="default_spinner_radius">10dp</dimen>
+
+    <dimen name="toolbar_title_text_size">20sp</dimen>
+    <dimen name="toolbar_icon_height">40dp</dimen>
+    <dimen name="toolbar_icon_width">40dp</dimen>
+    <dimen name="search_view_text_size">18sp</dimen>
+    <dimen name="app_bar_layout_sort_icon_width">48dp</dimen>
+    <dimen name="app_bar_layout_sort_icon_height">48dp</dimen>
+
+    <dimen name="sorting_icon_bottom_sheet_image_width">24dp</dimen>
+    <dimen name="sorting_icon_bottom_sheet_image_height">24dp</dimen>
+    <dimen name="progress_bar_y_translation">6dp</dimen>
 
 </resources>

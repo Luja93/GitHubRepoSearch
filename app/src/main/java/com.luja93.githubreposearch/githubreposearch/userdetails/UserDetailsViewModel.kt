@@ -14,6 +14,7 @@ class UserDetailsViewModel @Inject constructor(
     private val userRepo: UserRepo
 ) : BaseViewModel(schedulers) {
 
+    // LiveData
     private var _user = MutableLiveData<ResourceState<User>>()
     var user: LiveData<ResourceState<User>> = _user
 
@@ -22,5 +23,4 @@ class UserDetailsViewModel @Inject constructor(
             userRepo.getUser(id, username)
         })
     }
-
 }

@@ -5,8 +5,8 @@ import androidx.room.RoomDatabase
 import com.luja93.githubreposearch.githubreposearch.model.Owner
 import com.luja93.githubreposearch.githubreposearch.model.Repo
 import com.luja93.githubreposearch.githubreposearch.model.User
-import com.luja93.githubreposearch.githubreposearch.repository.repo.RepoDao
-import com.luja93.githubreposearch.githubreposearch.repository.user.UserDao
+import com.luja93.githubreposearch.githubreposearch.repository.dao.RepoDao
+import com.luja93.githubreposearch.githubreposearch.repository.dao.UserDao
 
 /**
  * Created by lleopoldovic on 13/09/2019.

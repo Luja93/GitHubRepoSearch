@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph.xml"
+    app:startDestination="@id/fragment_search_repos">
+
+    <fragment
+        android:id="@+id/fragment_search_repos"
+        android:name="com.luja93.githubreposearch.githubreposearch.search.SearchReposFragment"
+        tools:layout="@layout/fragment_search_repos">
+        <action
+            android:id="@+id/action_search_repos_to_repo_details"
+            app:destination="@+id/fragment_repo_details" />
+        <action
+            android:id="@+id/action_search_repos_to_user_details"
+            app:destination="@+id/fragment_user_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_repo_details"
+        android:name="com.luja93.githubreposearch.githubreposearch.repodetails.RepoDetailsFragment"
+        tools:layout="@layout/fragment_repo_details">
+        <action
+            android:id="@+id/action_repo_details_to_user_details"
+            app:destination="@+id/fragment_user_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_user_details"
+        android:name="com.luja93.githubreposearch.githubreposearch.userdetails.UserDetailsFragment"
+        tools:layout="@layout/fragment_user_details">
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

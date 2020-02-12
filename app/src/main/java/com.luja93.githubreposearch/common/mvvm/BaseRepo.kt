@@ -111,10 +111,10 @@ abstract class BaseRepo (
         if (e is RetrofitException) {
             val errorCode = e.response?.code() ?: ResponseCodes.UNDEFINED.code
             return if (e.processNetworkError()) {
-                BaseError("Network error, check your internet connection.", errorCode)
+                BaseError(BaseError.networkErrorMessage, errorCode)
             } else {
                 val errorBodyString =
-                    e.response?.errorBody()?.string() ?: "{\"message\":\"Empty error body\"}"
+                    e.response?.errorBody()?.string() ?: BaseError.emptyErrorBodyMessage
                 e.response?.errorBody()?.close()
                 try {
                     val generalError =
@@ -122,11 +122,11 @@ abstract class BaseRepo (
                     BaseError(generalError.message, errorCode)
                 } catch (e1: JsonSyntaxException) {
                     Log.i("BaseRepo", "Exception GeneralError: " + e1.message, e1)
-                    BaseError("Ups.. Looks like an error occurred.\nPlease try later.")
+                    BaseError(BaseError.baseErrorMessage)
                 }
             }
         } else {
-            return BaseError("Local error occurred.")
+            return BaseError(BaseError.localErrorMessage)
         }
     }
 }

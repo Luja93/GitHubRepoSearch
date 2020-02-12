@@ -1,10 +1,11 @@
 package com.luja93.githubreposearch.githubreposearch.repodetails
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.luja93.githubreposearch.R
 import com.luja93.githubreposearch.common.mvvm.BaseFragment
 import com.luja93.githubreposearch.githubreposearch.model.Repo
@@ -21,18 +22,17 @@ import org.parceler.Parcels
 
 class RepoDetailsFragment : BaseFragment() {
 
-    companion object {
-        private const val ARG_KEY_REPO = "argKeyRepo"
 
-        fun newInstance(repo: Repo) = RepoDetailsFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(ARG_KEY_REPO, Parcels.wrap(repo))
-            }
-        }
+    companion object {
+        private const val ARG_KEY_REPO = "repo"
+
+        /**
+         * Use this method to pass a bundle with action using a navigation graph.
+         */
+        fun newBundle(repo: Repo) = bundleOf(ARG_KEY_REPO to Parcels.wrap(repo))
     }
 
     private lateinit var repo: Repo
-    private var listener: OnRepoDetailsFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +53,6 @@ class RepoDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnRepoDetailsFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement OnRepoDetailsFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     private fun setupUI() {
@@ -107,17 +93,21 @@ class RepoDetailsFragment : BaseFragment() {
 
         // Click listeners
         details_header_view.avatar_IV.setOnClickListener {
-            listener?.onUserClicked(repo.owner.id, repo.owner.username)
+            findNavController().navigate(
+                RepoDetailsFragmentDirections.actionRepoDetailsToUserDetails(
+                    repo.owner.id, repo.owner.username
+                )
+            )
         }
         details_header_view.title_TV.setOnClickListener {
-            listener?.onUserClicked(repo.owner.id, repo.owner.username)
+            findNavController().navigate(
+                RepoDetailsFragmentDirections.actionRepoDetailsToUserDetails(
+                    repo.owner.id, repo.owner.username
+                )
+            )
         }
         show_more_TV.setOnClickListener {
             CustomTabUtils.openInBrowser(desc_details_DTV.context, repo.url)
         }
-    }
-
-    interface OnRepoDetailsFragmentInteractionListener {
-        fun onUserClicked(id: Long, username: String)
     }
 }

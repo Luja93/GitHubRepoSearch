@@ -30,7 +30,7 @@ class ResourceStateObserver<T>(
             onErrorActionCheck(
                 onError,
                 baseError = t.error ?: BaseError(
-                    errorMessage = "Ups.. Looks like an error occurred.\nPlease try later."
+                    errorMessage = BaseError.baseErrorMessage
                 )
             )
             // If a response code needs to be handled specifically, add the new case here

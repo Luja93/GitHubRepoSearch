@@ -23,6 +23,13 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">@dimen/search_view_text_size</item>
+        <item name="queryBackground">@color/textColorSecondary</item>
+    </style>
+
     <style name="ToolbarTitleBarTextAppearance" parent="android:TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/toolbar_title_text_size</item>
@@ -40,6 +47,19 @@
     <style name="Divider">
         <item name="android:background">@color/textColorSecondary</item>
         <item name="android:alpha">0.3</item>
+    </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet_dialog_fragment</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
 </resources>
