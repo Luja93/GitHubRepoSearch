@@ -36,6 +36,7 @@ class GenericPaginationDataSourceFactory<DataType, PaginationParams>(
     var instantLoadInitial: Boolean = true
 ) : DataSource.Factory<Int, DataType>() {
 
+    private var shouldClear: Boolean = false
     private var mInstantLoadInitial = instantLoadInitial
     private var mParams: GenericPaginationParams<PaginationParams> = params
     private var dataSource: GenericPaginationDataSource<DataType, PaginationParams>? = null
@@ -45,9 +46,10 @@ class GenericPaginationDataSourceFactory<DataType, PaginationParams>(
     override fun create(): DataSource<Int, DataType> {
         // A new instance of _dataSource has to be created every time create() is called.
         val _dataSource = GenericPaginationDataSource<DataType, PaginationParams>(
-            mParams, call, compositeDisposable, mInstantLoadInitial, fetchState
+            mParams, call, compositeDisposable, mInstantLoadInitial, shouldClear, fetchState
         )
         dataSource = _dataSource
+        shouldClear = false
 
         return _dataSource
     }
@@ -59,8 +61,24 @@ class GenericPaginationDataSourceFactory<DataType, PaginationParams>(
      * Note: Your app's UI can trigger this data invalidation functionality using a swipe to refresh model.
      */
     fun reInit(params: GenericPaginationParams<PaginationParams>) {
-        this.mParams = params
-        this.mInstantLoadInitial = true
+        mParams = params
+        mInstantLoadInitial = true
+        dataSource?.invalidate()
+    }
+
+    /**
+     * Clears the items in the pagination adapter (returns an emptyList).
+     *
+     * If a PaginationAdapter was populated, then hidden because the search query returned no results or because no
+     * search query was provided (BLANK_SEARCH), the LiveData<PagedList> used to populate the adapter has to be cleared,
+     * otherwise a small glitch, showing a portion of old data will be shown, until the DiffUtil has done its thing to
+     * repopulate the adapter.
+     *
+     * Note: you must NOT set the adapter's RecyclerView visibility to GONE, because the changes won't render. Instead,
+     * set it to INVISIBLE is possible.
+     */
+    fun clear() {
+        shouldClear = true
         dataSource?.invalidate()
     }
 

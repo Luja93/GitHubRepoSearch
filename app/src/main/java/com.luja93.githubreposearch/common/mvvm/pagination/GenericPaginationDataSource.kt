@@ -23,6 +23,7 @@ class GenericPaginationDataSource<T, R>(
     private var call: (params: GenericPaginationParams<R>) -> Observable<ResourceState<List<T>>>,
     private var compositeDisposable: CompositeDisposable,
     private var instantLoadInitial: Boolean,
+    private var shouldClear: Boolean,
     private var fetchState: MutableLiveData<ResourceState<T>>
 ) : PageKeyedDataSource<Int, T>() {
 
@@ -43,13 +44,16 @@ class GenericPaginationDataSource<T, R>(
             return
         }
 
+        if (shouldClear) {
+            callback.onResult(emptyList(), previousPageNo, nextPageNo - 1)
+            fetchState.postValue(ResourceState.success(null))
+            return
+        }
+
         fetchState.postValue(ResourceState.loading())
 
         compositeDisposable.add(
             call(this.params)
-                .doOnError {
-                    // An error occurred
-                }
                 .subscribe({
                     when (it.status) {
                         // The fetch request status (API/database)

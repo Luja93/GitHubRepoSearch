@@ -127,8 +127,10 @@ class SearchReposFragment : BaseFragment(), ReposPaginationAdapter.OnRepoInterac
     private fun setContentVisibility(totalCount: Long) {
         if (totalCount <= 0) {
             expandToolbar()
+            repos_RV.invisible()
+        } else {
+            repos_RV.visible()
         }
-        repos_RV.visibleIf(totalCount > 0)
         instructions_group.visibleIf(totalCount <= 0)
     }
 

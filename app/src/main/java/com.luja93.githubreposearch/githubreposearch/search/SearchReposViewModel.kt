@@ -78,6 +78,7 @@ class SearchReposViewModel @Inject constructor(
 
         if (queryTrimmed.isBlank()) {
             _totalCount.value = BLANK_SEARCH
+            reposDataSourceFactory.clear()
         } else {
             performSearch(queryTrimmed)
         }
